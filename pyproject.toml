@@ -2,11 +2,8 @@
 requires = ["jupyter_packaging~=0.9", "jupyter_server"]
 build-backend = "jupyter_packaging.build_api"
 
-[tool.jupyter-packaging.builder]
-factory = "jupyter_packaging.npm_builder"
-
 [tool.check-manifest]
-ignore = ["tbump.toml", ".*", "*.yml", "conftest.py"]
+ignore = [""]
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules"
