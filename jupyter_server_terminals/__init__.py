@@ -2,7 +2,6 @@ import os
 import sys
 
 import terminado
-
 from jupyter_server.utils import check_version
 
 if not check_version(terminado.__version__, "0.8.3"):

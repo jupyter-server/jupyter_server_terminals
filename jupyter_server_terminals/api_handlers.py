@@ -1,8 +1,7 @@
 import json
 
-from tornado import web
-
 from jupyter_server.base.handlers import APIHandler
+from tornado import web
 
 
 class TerminalRootHandler(APIHandler):
