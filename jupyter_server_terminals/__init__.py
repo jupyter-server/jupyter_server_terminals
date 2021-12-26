@@ -1,17 +1,15 @@
 import os
 import sys
 
-import terminado
-from jupyter_server.utils import check_version
-
-if not check_version(terminado.__version__, "0.8.3"):
-    raise ImportError("terminado >= 0.8.3 required, found %s" % terminado.__version__)
-
 from ipython_genutils.py3compat import which
 from jupyter_server.utils import url_path_join as ujoin
+
 from . import api_handlers
 from .handlers import TermSocket
 from .terminalmanager import TerminalManager
+
+version_info = (0, 1, 0, ".dev", "0")
+__version__ = ".".join(map(str, version_info[:3])) + "".join(version_info[3:])
 
 
 def initialize(webapp, root_dir, connection_url, settings):
