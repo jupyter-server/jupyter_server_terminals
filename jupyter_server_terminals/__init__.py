@@ -1,7 +1,7 @@
 import os
 import sys
+from shutil import which
 
-from ipython_genutils.py3compat import which
 from jupyter_server.utils import url_path_join as ujoin
 
 from . import api_handlers

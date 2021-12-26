@@ -90,3 +90,42 @@ Install dependencies::
 To run the Python tests, use::
 
     pytest jupyter_server_terminals
+
+
+Building the Docs
+=================
+
+To build the documentation you'll need `Sphinx <http://www.sphinx-doc.org/en/master/>`_,
+`pandoc <https://pandoc.org/>`_ and a few other packages.
+
+To install (and activate) a `conda environment`_ named ``jupyter_server_terminals_docs``
+containing all the necessary packages (except pandoc), use::
+
+    conda env create -f docs/environment.yml
+    source activate jupyter_server_terminals_docs  # Linux and OS X
+    activate jupyter_server_terminals_docs         # Windows
+
+.. _conda environment:
+    https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file
+
+If you want to install the necessary packages with ``pip`` instead::
+
+    pip install -r docs/doc-requirements.txt
+
+Once you have installed the required packages, you can build the docs with::
+
+    cd docs
+    make html
+
+After that, the generated HTML files will be available at
+``build/html/index.html``. You may view the docs in your browser.
+
+You can automatically check if all hyperlinks are still valid::
+
+    make linkcheck
+
+Windows users can find ``make.bat`` in the ``docs`` folder.
+
+You should also have a look at the `Project Jupyter Documentation Guide`__.
+
+__ https://jupyter.readthedocs.io/en/latest/contributing/content-contributor.html
