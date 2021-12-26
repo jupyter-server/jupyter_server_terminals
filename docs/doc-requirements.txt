@@ -1,4 +1,5 @@
 jinja2
+jupyter_server
 myst-parser
 nbformat
 pydata_sphinx_theme

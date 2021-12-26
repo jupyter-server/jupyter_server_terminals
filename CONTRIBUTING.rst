@@ -102,8 +102,7 @@ To install (and activate) a `conda environment`_ named ``jupyter_server_terminal
 containing all the necessary packages (except pandoc), use::
 
     conda env create -f docs/environment.yml
-    source activate jupyter_server_terminals_docs  # Linux and OS X
-    activate jupyter_server_terminals_docs         # Windows
+    conda activate jupyter_server_terminals_docs
 
 .. _conda environment:
     https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file
