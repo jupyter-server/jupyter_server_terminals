@@ -99,7 +99,7 @@ github_project_url = "https://github.com/jupyter/jupyter_server_terminals"
 __version__ = "0.1.0.dev0"
 # The short X.Y version.
 version_parsed = parse_version(__version__)
-version = f'{version_parsed.major}.{version_parsed.minor}'
+version = f"{version_parsed.major}.{version_parsed.minor}"
 
 # The full version, including alpha/beta/rc tags.
 release = __version__
@@ -318,7 +318,9 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "jupyterserverterminals", "Jupyter Server Terminals Documentation", [author], 1)]
+man_pages = [
+    (master_doc, "jupyterserverterminals", "Jupyter Server Terminals Documentation", [author], 1)
+]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
