@@ -1,0 +1,71 @@
+name: Tests
+on:
+  push:
+    branches: "main"
+  pull_request:
+    branches: "*"
+jobs:
+  # Run "pre-commit run --all-files"
+  pre-commit:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 2
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      # ref: https://github.com/pre-commit/action
+      - uses: pre-commit/action@v2.0.0
+      - name: Help message if pre-commit fail
+        if: ${{ failure() }}
+        run: |
+          echo "You can install pre-commit hooks to automatically run formatting"
+          echo "on each commit with:"
+          echo "    pre-commit install"
+          echo "or you can run by hand on staged files with"
+          echo "    pre-commit run"
+          echo "or after-the-fact on already committed files with"
+          echo "    pre-commit run --all-files"
+
+  test:
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "pypy3"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Base Setup
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - name: Install the Python dependencies
+        run: |
+          pip install -e ".[test]" codecov
+      - name: List installed packages
+        run: |
+          pip freeze
+          pip check
+      - name: Run the tests with Coverage
+        if: ${{ matrix.python-version != 'pypy3' || !startsWith(runner.os, 'Windows') }}
+        run: |
+          pytest -vv jupyter_server_terminals --cov jupyter_server_terminals --cov-branch --cov-report term-missing:skip-covered
+      - name: Run the tests on pypy and Windows
+        if: ${{ matrix.python-version == 'pypy3' || startsWith(runner.os, 'Windows') }}
+        run: |
+          pytest -vv jupyter_server_terminals
+      - name: Coverage
+        if: ${{ matrix.python-version != 'pypy3' }}
+        run: |
+          codecov
+      - name: Test full install
+        if: ${{ matrix.python-version != 'pypy3' || !startsWith(runner.os, 'Windows') }}
+        run: |
+          python -m venv test_install
+          ./test_install/bin/python -m pip install -U pip
+          ./test_install/bin/python -m pip install ".[test]"
+          pushd test_install
+          ./bin/pytest --pyargs jupyter_server_terminals
+          popd
