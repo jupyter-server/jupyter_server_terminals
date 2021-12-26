@@ -1,0 +1,101 @@
+swagger: "2.0"
+info:
+  title: Jupyter Server Terminals API
+  description: Terminals API
+  version: "5"
+  contact:
+    name: Jupyter Project
+    url: https://jupyter.org
+# will be prefixed to all paths
+basePath: /
+produces:
+  - application/json
+consumes:
+  - application/json
+parameters:
+  terminal_id:
+    name: terminal_id
+    required: true
+    in: path
+    description: ID of terminal session
+    type: string
+
+paths:
+  /api/terminals:
+    get:
+      summary: Get available terminals
+      tags:
+        - terminals
+      responses:
+        200:
+          description: A list of all available terminal ids.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Terminal"
+        403:
+          description: Forbidden to access
+        404:
+          description: Not found
+
+    post:
+      summary: Create a new terminal
+      tags:
+        - terminals
+      responses:
+        200:
+          description: Succesfully created a new terminal
+          schema:
+            $ref: "#/definitions/Terminal"
+        403:
+          description: Forbidden to access
+        404:
+          description: Not found
+
+  /api/terminals/{terminal_id}:
+    get:
+      summary: Get a terminal session corresponding to an id.
+      tags:
+        - terminals
+      parameters:
+        - $ref: "#/parameters/terminal_id"
+      responses:
+        200:
+          description: Terminal session with given id
+          schema:
+            $ref: "#/definitions/Terminal"
+        403:
+          description: Forbidden to access
+        404:
+          description: Not found
+
+    delete:
+      summary: Delete a terminal session corresponding to an id.
+      tags:
+        - terminals
+      parameters:
+        - $ref: "#/parameters/terminal_id"
+      responses:
+        204:
+          description: Succesfully deleted terminal session
+        403:
+          description: Forbidden to access
+        404:
+          description: Not found
+
+definitions:
+  Terminal:
+    description: A Terminal object
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        description: name of terminal
+      last_activity:
+        type: string
+        description: |
+          ISO 8601 timestamp for the last-seen activity on this terminal.  Use
+          this to identify which terminals have been inactive since a given time.
+          Timestamps will be UTC, indicated 'Z' suffix.
