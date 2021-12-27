@@ -30,7 +30,7 @@ jobs:
           echo "    pre-commit run --all-files"
 
   test:
-    runs-on: ${{ matrix.os }}-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:

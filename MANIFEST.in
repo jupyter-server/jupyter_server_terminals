@@ -17,9 +17,9 @@ prune docs/gh-pages
 prune docs/dist
 
 # Top level excludes
-.pre-commit-config.yaml
-*.yml
-.gitconfig
+exclude .pre-commit-config.yaml
+exclude *.yml
+exclude .gitconfig
 
 # Patterns to exclude from any directory
 global-exclude *~
