@@ -3,8 +3,6 @@ include CONTRIBUTING.rst
 include README.md
 include RELEASE.md
 include CHANGELOG.md
-include setupbase.py
-include package.json
 
 # include everything in package_data
 recursive-include jupyter_server_terminals *
@@ -13,13 +11,15 @@ recursive-include jupyter_server_terminals *
 graft docs
 exclude docs/\#*
 
-# Examples
-graft examples
-
 # docs subdirs we want to skip
 prune docs/build
 prune docs/gh-pages
 prune docs/dist
+
+# Top level excludes
+.pre-commit-config.yaml
+*.yml
+.gitconfig
 
 # Patterns to exclude from any directory
 global-exclude *~

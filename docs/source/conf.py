@@ -370,5 +370,5 @@ spelling_word_list_filename = "spelling_wordlist.txt"
 
 
 def setup(app):
-    dest = osp.join(HERE, "other", "changelog.md")
+    dest = osp.join(HERE, "changelog.md")
     shutil.copy(osp.join(HERE, "..", "..", "CHANGELOG.md"), dest)
