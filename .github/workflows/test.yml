@@ -36,6 +36,13 @@ jobs:
       matrix:
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "pypy-3.7"]
+        exclude:
+          - os: "ubuntu-latest"
+            python-version: "3.6"
+          - os: "windows-latest"
+            python-version: "3.7"
+          - os: "macos-latest"
+            python-version: "3.8"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
