@@ -1,6 +1,6 @@
 # Jupyter Server Terminals
 
-[![Build Status](https://github.com/jupyter-server/jupyter_server_termainls/workflows/CI/badge.svg?query=branch%3Amain++)](https://github.com/jupyter-server/jupyter_server_terminals/actions?query=branch%3Amain++)
+[![Build Status](https://github.com/jupyter-server/jupyter_server_terminals/actions/workflows/test.yml/badge.svg?query=branch%3Amain++)](https://github.com/jupyter-server/jupyter_server_terminals/actions?query=branch%3Amain++)
 
 Jupyter Server Terminals is a Jupyter Server Extension providing support for terminals.
 

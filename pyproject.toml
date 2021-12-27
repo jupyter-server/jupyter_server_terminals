@@ -1,12 +1,9 @@
 [build-system]
-requires = ["jupyter_packaging~=0.9"]
+requires = ["jupyter_packaging~=0.9", "jupyter_server"]
 build-backend = "jupyter_packaging.build_api"
 
-[tool.jupyter-packaging.builder]
-factory = "jupyter_packaging.npm_builder"
-
 [tool.check-manifest]
-ignore = ["tbump.toml", ".*", "*.yml", "conftest.py"]
+ignore = [""]
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules"
@@ -29,8 +26,12 @@ message_template = "Bump to {new_version}"
 tag_template = "v{new_version}"
 
 [[tool.tbump.file]]
-src = "jupyter_server_terminals/_version.py"
+src = "jupyter_server_terminals/__init__.py"
 version_template = '({major}, {minor}, {patch}, "{channel}", "{release}")'
+
+[[tool.tbump.file]]
+src = "docs/source/conf.py"
+version_template = '{major}.{minor}.{patch}{channel}{release}'
 
 [[tool.tbump.field]]
 name = "channel"

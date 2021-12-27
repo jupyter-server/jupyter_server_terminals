@@ -25,6 +25,7 @@ src
 *.map
 Read the Docs
 config.rst
+docs/source/changelog.md
 
 /.project
 /.pydevproject

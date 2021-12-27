@@ -73,11 +73,10 @@ running other instances of Jupyter Server. You can try the following steps:
 1. Uninstall all instances of the jupyter_server_terminals package. These include any installations you made using
    pip or conda
 2. Run ``python3 -m pip install -e .`` in the jupyter_server_terminals repository to install jupyter_server_terminals from there
-3. Run ``npm run build`` to make sure the Javascript and CSS are updated and compiled
-4. Launch with ``python3 -m jupyter_server --port 8989``, and check that the browser is pointing to ``localhost:8989``
+3. Launch with ``python3 -m jupyter_server --port 8989``, and check that the browser is pointing to ``localhost:8989``
    (rather than the default 8888). You don't necessarily have to launch with port 8989, as long as you use
    a port that is neither the default nor in use, then it should be fine.
-5. Verify the installation with the steps in the previous section.
+4. Verify the installation with the steps in the previous section.
 
 Running Tests
 =============
@@ -90,3 +89,41 @@ Install dependencies::
 To run the Python tests, use::
 
     pytest jupyter_server_terminals
+
+
+Building the Docs
+=================
+
+To build the documentation you'll need `Sphinx <http://www.sphinx-doc.org/en/master/>`_,
+`pandoc <https://pandoc.org/>`_ and a few other packages.
+
+To install (and activate) a `conda environment`_ named ``jupyter_server_terminals_docs``
+containing all the necessary packages (except pandoc), use::
+
+    conda env create -f docs/environment.yml
+    conda activate jupyter_server_terminals_docs
+
+.. _conda environment:
+    https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file
+
+If you want to install the necessary packages with ``pip`` instead::
+
+    pip install -r docs/doc-requirements.txt
+
+Once you have installed the required packages, you can build the docs with::
+
+    cd docs
+    make html
+
+After that, the generated HTML files will be available at
+``build/html/index.html``. You may view the docs in your browser.
+
+You can automatically check if all hyperlinks are still valid::
+
+    make linkcheck
+
+Windows users can find ``make.bat`` in the ``docs`` folder.
+
+You should also have a look at the `Project Jupyter Documentation Guide`__.
+
+__ https://jupyter.readthedocs.io/en/latest/contributing/content-contributor.html
