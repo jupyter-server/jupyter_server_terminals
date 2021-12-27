@@ -53,15 +53,15 @@ jobs:
         run: |
           pytest -vv jupyter_server_terminals --cov jupyter_server_terminals --cov-branch --cov-report term-missing:skip-covered
       - name: Run the tests on pypy and Windows
-        if: ${{ matrix.python-version == 'pypy3' || startsWith(runner.os, 'Windows') }}
+        if: ${{ startsWith(matrix.python-version, 'pypy') || startsWith(runner.os, 'Windows') }}
         run: |
           pytest -vv jupyter_server_terminals
       - name: Coverage
-        if: ${{ matrix.python-version != 'pypy3' }}
+        if: ${{ !startsWith(matrix.python-version, 'pypy') }}
         run: |
           codecov
       - name: Test full install
-        if: ${{ matrix.python-version != 'pypy3' && !startsWith(runner.os, 'Windows') }}
+        if: ${{ !startsWith(matrix.python-version, 'pypy')' && !startsWith(runner.os, 'Windows') }}
         run: |
           python -m venv test_install
           ./test_install/bin/python -m pip install -U pip
