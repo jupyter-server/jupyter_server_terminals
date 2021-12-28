@@ -7,18 +7,22 @@
 from datetime import timedelta
 
 import terminado
-from jupyter_server._tz import isoformat
-from jupyter_server._tz import utcnow
-from jupyter_server.prometheus.metrics import TERMINAL_CURRENTLY_RUNNING_TOTAL
 from tornado import web
 from tornado.ioloop import IOLoop
 from tornado.ioloop import PeriodicCallback
 from traitlets import Integer
 from traitlets.config import LoggingConfigurable
 
+try:
+    from jupyter_server._tz import isoformat
+    from jupyter_server._tz import utcnow
+    from jupyter_server.prometheus.metrics import TERMINAL_CURRENTLY_RUNNING_TOTAL
+except ModuleNotFoundError:
+    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
+
 
 class TerminalManager(LoggingConfigurable, terminado.NamedTermManager):
-    """  """
+    """ """
 
     _culler_callback = None
 
@@ -101,7 +105,7 @@ class TerminalManager(LoggingConfigurable, terminado.NamedTermManager):
     def _check_terminal(self, name):
         """Check a that terminal 'name' exists and raise 404 if not."""
         if name not in self.terminals:
-            raise web.HTTPError(404, u"Terminal not found: %s" % name)
+            raise web.HTTPError(404, "Terminal not found: %s" % name)
 
     def _initialize_culler(self):
         """Start culler if 'cull_inactive_timeout' is greater than zero.

@@ -3,13 +3,19 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 import terminado
-from jupyter_server._tz import utcnow
-from jupyter_server.base.handlers import JupyterHandler
-from jupyter_server.base.zmqhandlers import WebSocketMixin
 from tornado import web
 
+from .base import TerminalsMixin
 
-class TermSocket(WebSocketMixin, JupyterHandler, terminado.TermSocket):
+try:
+    from jupyter_server._tz import utcnow
+    from jupyter_server.base.handlers import JupyterHandler
+    from jupyter_server.base.zmqhandlers import WebSocketMixin
+except ModuleNotFoundError:
+    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
+
+
+class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, terminado.TermSocket):
     def origin_check(self):
         """Terminado adds redundant origin_check
         Tornado already calls check_origin, so don't do anything here.

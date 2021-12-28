@@ -1,0 +1,112 @@
+import os
+import sys
+from shutil import which
+
+from traitlets import Type
+
+from . import api_handlers
+from . import handlers
+from .terminalmanager import TerminalManager
+
+try:
+    from jupyter_server.extension.application import ExtensionApp
+    from jupyter_server.utils import run_sync_in_loop
+    from jupyter_server.transutils import trans
+
+    # Tolerate missing terminado package.
+    try:
+        from .terminalmanager import TerminalManager
+
+        terminado_available = True
+    except ImportError:
+        terminado_available = False
+
+except ModuleNotFoundError:
+    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
+
+
+class TerminalsExtensionApp(ExtensionApp):
+
+    name = "jupyter_server_terminals"
+
+    terminal_manager_class = Type(
+        default_value=TerminalManager, help="The terminal manager class to use."
+    ).tag(config=True)
+
+    # Since use of terminals is also a function of whether the terminado package is
+    # available, this variable holds the "final indication" of whether terminal functionality
+    # should be considered (particularly during shutdown/cleanup).  It is enabled only
+    # once both the terminals "service" can be initialized and terminals_enabled is True.
+    # Note: this variable is slightly different from 'terminals_available' in the web settings
+    # in that this variable *could* remain false if terminado is available, yet the terminal
+    # service's initialization still fails.  As a result, this variable holds the truth.
+    terminals_available = False
+
+    def initialize_settings(self):
+        self.initialize_configurables()
+        self.settings.update(
+            dict(terminals_available=terminado_available, terminal_manager=self.terminal_manager)
+        )
+
+    def initialize_configurables(self):
+        if os.name == "nt":
+            default_shell = "powershell.exe"
+        else:
+            default_shell = which("sh")
+        shell_override = self.serverapp.terminado_settings.get("shell_command")
+        shell = (
+            [os.environ.get("SHELL") or default_shell] if shell_override is None else shell_override
+        )
+        # When the notebook server is not running in a terminal (e.g. when
+        # it's launched by a JupyterHub spawner), it's likely that the user
+        # environment hasn't been fully set up. In that case, run a login
+        # shell to automatically source /etc/profile and the like, unless
+        # the user has specifically set a preferred shell command.
+        if os.name != "nt" and shell_override is None and not sys.stdout.isatty():
+            shell.append("-l")
+
+        self.terminal_manager = self.terminal_manager_class(
+            shell_command=shell,
+            extra_env={
+                "JUPYTER_SERVER_ROOT": self.serverapp.root_dir,
+                "JUPYTER_SERVER_URL": self.serverapp.connection_url,
+            },
+            parent=self.serverapp,
+        )
+        self.terminal_manager.log = self.serverapp.log
+
+    def initialize_handlers(self):
+        self.handlers.append(
+            (
+                r"/terminals/websocket/(\w+)",
+                handlers.TermSocket,
+                {"term_manager": self.terminal_manager},
+            )
+        )
+        self.handlers.extend(api_handlers.default_handlers)
+
+    def current_activity(self):
+        if self.terminals_available:
+            terminals = self.terminal_manager.terminals
+            if terminals:
+                return terminals
+
+    async def cleanup_terminals(self):
+        """Shutdown all terminals.
+
+        The terminals will shutdown themselves when this process no longer exists,
+        but explicit shutdown allows the TerminalManager to cleanup.
+        """
+        if not self.terminals_available:
+            return
+
+        terminal_manager = self.web_app.settings["terminal_manager"]
+        n_terminals = len(terminal_manager.list())
+        terminal_msg = trans.ngettext(
+            "Shutting down %d terminal", "Shutting down %d terminals", n_terminals
+        )
+        self.log.info(terminal_msg % n_terminals)
+        await run_sync_in_loop(terminal_manager.terminate_all())
+
+    async def stop_extension(self):
+        await self.cleanup_terminals()

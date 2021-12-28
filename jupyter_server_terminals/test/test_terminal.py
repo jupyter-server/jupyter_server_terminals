@@ -2,6 +2,7 @@ import asyncio
 import json
 import os
 import shutil
+import time
 
 import pytest
 from tornado.httpclient import HTTPClientError
@@ -30,7 +31,8 @@ def jp_server_config():
                 "TerminalManager": {
                     "cull_inactive_timeout": CULL_TIMEOUT,
                     "cull_interval": CULL_INTERVAL,
-                }
+                },
+                "jpserver_extensions": {"jupyter_server_terminals": True},
             }
         }
     )
@@ -69,6 +71,8 @@ async def test_terminal_create(jp_fetch, jp_cleanup_subprocesses):
     data = json.loads(resp_list.body.decode())
 
     assert len(data) == 1
+    del data[0]["last_activity"]
+    del term["last_activity"]
     assert data[0] == term
     await jp_cleanup_subprocesses()
 
@@ -115,7 +119,14 @@ async def test_terminal_create_with_cwd(
     data = json.loads(resp.body.decode())
     term_name = data["name"]
 
-    ws = await jp_ws_fetch("terminals", "websocket", term_name)
+    while True:
+        try:
+            ws = await jp_ws_fetch("terminals", "websocket", term_name)
+            break
+        except HTTPClientError as e:
+            if e.code != 404:
+                raise
+            time.sleep(1)
 
     ws.write_message(json.dumps(["stdin", "pwd\r\n"]))
 
