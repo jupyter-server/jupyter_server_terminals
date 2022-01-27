@@ -21,6 +21,9 @@ def terminal_path(tmp_path):
 CULL_TIMEOUT = 10
 CULL_INTERVAL = 3
 
+if os.name == 'nt':
+    CULL_INTERVAL = 20
+
 
 @pytest.fixture
 def jp_server_config():
