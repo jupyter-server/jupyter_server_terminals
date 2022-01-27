@@ -22,7 +22,7 @@ CULL_TIMEOUT = 10
 CULL_INTERVAL = 3
 
 if os.name == 'nt':
-    CULL_INTERVAL = 20
+    CULL_TIMEOUT = 20
 
 
 @pytest.fixture
