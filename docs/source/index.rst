@@ -12,6 +12,7 @@ Welcome to Jupyter Server Terminals documentation!
 
    changelog
    api
+   contributors/contributing
 
 
 Indices and tables
