@@ -8,7 +8,7 @@ ignore = [""]
 [tool.pytest.ini_options]
 addopts = "--doctest-modules"
 testpaths = [
-    "jupyter_server_terminals/"
+    "tests/"
 ]
 
 [tool.jupyter-releaser]
@@ -26,8 +26,8 @@ message_template = "Bump to {new_version}"
 tag_template = "v{new_version}"
 
 [[tool.tbump.file]]
-src = "jupyter_server_terminals/__init__.py"
-version_template = '({major}, {minor}, {patch}, "{channel}", "{release}")'
+src = "jupyter_server_terminals/_version.py"
+version_template = '{major}.{minor}.{patch}{channel}{release}'
 
 [[tool.tbump.file]]
 src = "docs/source/conf.py"
