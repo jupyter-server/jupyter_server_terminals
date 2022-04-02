@@ -8,14 +8,12 @@ from datetime import timedelta
 
 import terminado
 from tornado import web
-from tornado.ioloop import IOLoop
-from tornado.ioloop import PeriodicCallback
+from tornado.ioloop import IOLoop, PeriodicCallback
 from traitlets import Integer
 from traitlets.config import LoggingConfigurable
 
 try:
-    from jupyter_server._tz import isoformat
-    from jupyter_server._tz import utcnow
+    from jupyter_server._tz import isoformat, utcnow
     from jupyter_server.prometheus.metrics import TERMINAL_CURRENTLY_RUNNING_TOTAL
 except ModuleNotFoundError:
     raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
@@ -46,7 +44,7 @@ class TerminalManager(LoggingConfigurable, terminado.NamedTermManager):
     # Methods for managing terminals
     # -------------------------------------------------------------------------
     def __init__(self, *args, **kwargs):
-        super(TerminalManager, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def create(self, **kwargs):
         """Create a new terminal."""
@@ -78,7 +76,7 @@ class TerminalManager(LoggingConfigurable, terminado.NamedTermManager):
     async def terminate(self, name, force=False):
         """Terminate terminal 'name'."""
         self._check_terminal(name)
-        await super(TerminalManager, self).terminate(name, force=force)
+        await super().terminate(name, force=force)
 
         # Decrease the metric below by one
         # because a terminal has been shutdown
@@ -113,7 +111,7 @@ class TerminalManager(LoggingConfigurable, terminado.NamedTermManager):
         """
         if not self._initialized_culler and self.cull_inactive_timeout > 0:
             if self._culler_callback is None:
-                loop = IOLoop.current()
+                _ = IOLoop.current()
                 if self.cull_interval <= 0:  # handle case where user set invalid value
                     self.log.warning(
                         "Invalid value for 'cull_interval' detected (%s) - using default value (%s).",

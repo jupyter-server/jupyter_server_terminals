@@ -4,23 +4,13 @@ from shutil import which
 
 from traitlets import Type
 
-from . import api_handlers
-from . import handlers
+from . import api_handlers, handlers
 from .terminalmanager import TerminalManager
 
 try:
     from jupyter_server.extension.application import ExtensionApp
-    from jupyter_server.utils import run_sync_in_loop
     from jupyter_server.transutils import trans
-
-    # Tolerate missing terminado package.
-    try:
-        from .terminalmanager import TerminalManager
-
-        terminado_available = True
-    except ImportError:
-        terminado_available = False
-
+    from jupyter_server.utils import run_sync_in_loop
 except ModuleNotFoundError:
     raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
 
@@ -44,9 +34,7 @@ class TerminalsExtensionApp(ExtensionApp):
 
     def initialize_settings(self):
         self.initialize_configurables()
-        self.settings.update(
-            dict(terminals_available=terminado_available, terminal_manager=self.terminal_manager)
-        )
+        self.settings.update(dict(terminals_available=True, terminal_manager=self.terminal_manager))
 
     def initialize_configurables(self):
         if os.name == "nt":

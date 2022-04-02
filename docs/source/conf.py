@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # Jupyter Server documentation build configuration file, created by
 # sphinx-quickstart on Mon Apr 13 09:51:11 2015.
@@ -269,16 +268,7 @@ htmlhelp_basename = "JupyterServerTerminalsdoc"
 
 # -- Options for LaTeX output ---------------------------------------------
 
-latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #'papersize': 'letterpaper',
-    # The font size ('10pt', '11pt' or '12pt').
-    #'pointsize': '10pt',
-    # Additional stuff for the LaTeX preamble.
-    #'preamble': '',
-    # Latex figure (float) alignment
-    #'figure_align': 'htbp',
-}
+latex_elements = {}
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
@@ -328,7 +318,7 @@ man_pages = [
 
 # -- Options for link checks ----------------------------------------------
 
-linkcheck_ignore = ["http://127\.0\.0\.1/*"]
+linkcheck_ignore = [r"http://127\.0\.0\.1/*"]
 
 
 # -- Options for Texinfo output -------------------------------------------
