@@ -7,12 +7,12 @@ info:
     url: https://jupyter.org
   version: "1"
 servers:
-- url: /
+  - url: /
 paths:
   /api/terminals:
     get:
       tags:
-      - terminals
+        - terminals
       summary: Get available terminals
       responses:
         200:
@@ -22,7 +22,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Terminal'
+                  $ref: "#/components/schemas/Terminal"
         403:
           description: Forbidden to access
           content: {}
@@ -31,7 +31,7 @@ paths:
           content: {}
     post:
       tags:
-      - terminals
+        - terminals
       summary: Create a new terminal
       responses:
         200:
@@ -39,7 +39,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Terminal'
+                $ref: "#/components/schemas/Terminal"
         403:
           description: Forbidden to access
           content: {}
@@ -49,22 +49,22 @@ paths:
   /api/terminals/{terminal_id}:
     get:
       tags:
-      - terminals
+        - terminals
       summary: Get a terminal session corresponding to an id.
       parameters:
-      - name: terminal_id
-        in: path
-        description: ID of terminal session
-        required: true
-        schema:
-          type: string
+        - name: terminal_id
+          in: path
+          description: ID of terminal session
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: Terminal session with given id
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Terminal'
+                $ref: "#/components/schemas/Terminal"
         403:
           description: Forbidden to access
           content: {}
@@ -73,15 +73,15 @@ paths:
           content: {}
     delete:
       tags:
-      - terminals
+        - terminals
       summary: Delete a terminal session corresponding to an id.
       parameters:
-      - name: terminal_id
-        in: path
-        description: ID of terminal session
-        required: true
-        schema:
-          type: string
+        - name: terminal_id
+          in: path
+          description: ID of terminal session
+          required: true
+          schema:
+            type: string
       responses:
         204:
           description: Succesfully deleted terminal session
@@ -96,7 +96,7 @@ components:
   schemas:
     Terminal:
       required:
-      - name
+        - name
       type: object
       properties:
         name:

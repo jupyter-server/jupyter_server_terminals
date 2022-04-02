@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # Jupyter Server documentation build configuration file, created by
 # sphinx-quickstart on Mon Apr 13 09:51:11 2015.
@@ -328,7 +327,7 @@ man_pages = [
 
 # -- Options for link checks ----------------------------------------------
 
-linkcheck_ignore = ["http://127\.0\.0\.1/*"]
+linkcheck_ignore = [r"http://127\.0\.0\.1/*"]
 
 
 # -- Options for Texinfo output -------------------------------------------

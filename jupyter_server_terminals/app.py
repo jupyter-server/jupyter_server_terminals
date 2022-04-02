@@ -4,14 +4,13 @@ from shutil import which
 
 from traitlets import Type
 
-from . import api_handlers
-from . import handlers
+from . import api_handlers, handlers
 from .terminalmanager import TerminalManager
 
 try:
     from jupyter_server.extension.application import ExtensionApp
-    from jupyter_server.utils import run_sync_in_loop
     from jupyter_server.transutils import trans
+    from jupyter_server.utils import run_sync_in_loop
 
     # Tolerate missing terminado package.
     try:
