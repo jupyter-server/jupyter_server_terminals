@@ -8,7 +8,7 @@ ignore = [""]
 [tool.pytest.ini_options]
 addopts = "--doctest-modules"
 testpaths = [
-    "jupyter_server_terminals/"
+    "tests/"
 ]
 
 [tool.jupyter-releaser]

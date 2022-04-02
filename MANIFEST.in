@@ -3,10 +3,11 @@ include CONTRIBUTING.rst
 include README.md
 include RELEASE.md
 include CHANGELOG.md
-include conftest.py
 
 # include everything in package_data
 recursive-include jupyter_server_terminals *
+
+recursive-include tests *
 
 # Documentation
 graft docs
