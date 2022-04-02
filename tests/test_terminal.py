@@ -38,7 +38,7 @@ def jp_server_config():
     )
 
 
-async def test_no_terminals(jp_fetch):
+async def test_no_terminals(jp_fetch, jp_server_config):
     resp_list = await jp_fetch(
         "api",
         "terminals",
@@ -51,7 +51,7 @@ async def test_no_terminals(jp_fetch):
     assert len(data) == 0
 
 
-async def test_terminal_create(jp_fetch, jp_cleanup_subprocesses):
+async def test_terminal_create(jp_server_config, jp_fetch, jp_cleanup_subprocesses):
     resp = await jp_fetch(
         "api",
         "terminals",
@@ -78,7 +78,7 @@ async def test_terminal_create(jp_fetch, jp_cleanup_subprocesses):
 
 
 async def test_terminal_create_with_kwargs(
-    jp_fetch, jp_ws_fetch, terminal_path, jp_cleanup_subprocesses
+    jp_server_config, jp_fetch, terminal_path, jp_cleanup_subprocesses
 ):
     resp_create = await jp_fetch(
         "api",
@@ -106,7 +106,7 @@ async def test_terminal_create_with_kwargs(
 
 
 async def test_terminal_create_with_cwd(
-    jp_fetch, jp_ws_fetch, terminal_path, jp_cleanup_subprocesses
+    jp_server_config, jp_fetch, jp_ws_fetch, terminal_path, jp_cleanup_subprocesses
 ):
     resp = await jp_fetch(
         "api",
