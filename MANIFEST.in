@@ -3,6 +3,7 @@ include CONTRIBUTING.rst
 include README.md
 include RELEASE.md
 include CHANGELOG.md
+include pyproject.toml
 
 # include everything in package_data
 recursive-include jupyter_server_terminals *
