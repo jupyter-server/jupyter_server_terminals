@@ -93,4 +93,4 @@ jobs:
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - uses: jupyterlab/maintainer-tools/.github/actions/test-sdist@v1
         with:
-          test_command: python -m pytest -vv
+          test_command: "pip install -U git+https://github.com/Zsailer/jupyter_server.git@jupyter_server_terminals && python -m pytest -vv"
