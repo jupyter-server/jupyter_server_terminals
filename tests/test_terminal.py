@@ -3,7 +3,6 @@ import json
 import os
 import shutil
 import sys
-import time
 
 import pytest
 from tornado.httpclient import HTTPClientError
@@ -135,7 +134,7 @@ async def test_terminal_create_with_cwd(
         except HTTPClientError as e:
             if e.code != 404:
                 raise
-            time.sleep(1)
+            await asyncio.sleep(1)
 
     ws.write_message(json.dumps(["stdin", "pwd\r\n"]))
 
@@ -178,7 +177,7 @@ async def test_terminal_create_with_relative_cwd(
         except HTTPClientError as e:
             if e.code != 404:
                 raise
-            time.sleep(1)
+            await asyncio.sleep(1)
 
     ws.write_message(json.dumps(["stdin", "pwd\r\n"]))
 
@@ -221,7 +220,7 @@ async def test_terminal_create_with_bad_cwd(jp_fetch, jp_ws_fetch, jp_cleanup_su
         except HTTPClientError as e:
             if e.code != 404:
                 raise
-            time.sleep(1)
+            await asyncio.sleep(1)
 
     ws.write_message(json.dumps(["stdin", "pwd\r\n"]))
 

@@ -1,4 +1,5 @@
 """Tests for authorization"""
+import asyncio
 
 import pytest
 from jupyter_client.kernelspec import NATIVE_KERNEL_NAME
@@ -168,7 +169,11 @@ async def test_authorized_requests(
         expected_codes = {403}
     jp_serverapp.authorizer.permissions = permissions
 
-    code = await send_request(url, body=body, method=method)
-    assert code in expected_codes
+    while True:
+        code = await send_request(url, body=body, method=method)
+        if code == 404:
+            await asyncio.sleep(1)
+            continue
+        assert code in expected_codes
 
     await jp_cleanup_subprocesses()
