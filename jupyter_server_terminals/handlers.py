@@ -35,7 +35,7 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, terminado.TermS
 
         # authorize the user.
         if not self.authorizer:
-            # Warn if there is not authorizer.
+            # Warn if an authorizer is unavailable.
             warn_disabled_authorization()
         elif not self.authorizer.is_authorized(self, user, "execute", self.auth_resource):
             raise web.HTTPError(403)
