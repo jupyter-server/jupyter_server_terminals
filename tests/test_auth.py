@@ -133,7 +133,7 @@ async def test_authorized_requests(
     term_model = term_manager.create()
     term_name = term_model["name"]
 
-    url = url.format(term_name)
+    url = url.format(term_name=term_name)
     if allowed:
         # Create a server with full permissions
         permissions = {
