@@ -73,6 +73,9 @@ class TerminalsExtensionApp(ExtensionApp):
         )
         self.handlers.extend(api_handlers.default_handlers)
         self.serverapp.web_app.settings["terminal_manager"] = self.terminal_manager
+        self.serverapp.web_app.settings["terminals_available"] = self.settings[
+            "terminals_available"
+        ]
 
     def current_activity(self):
         if self.terminals_available:
@@ -89,7 +92,7 @@ class TerminalsExtensionApp(ExtensionApp):
         if not self.terminals_available:
             return
 
-        terminal_manager = self.web_app.settings["terminal_manager"]
+        terminal_manager = self.terminal_manager
         n_terminals = len(terminal_manager.list())
         terminal_msg = trans.ngettext(
             "Shutting down %d terminal", "Shutting down %d terminals", n_terminals
