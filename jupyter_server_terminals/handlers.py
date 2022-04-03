@@ -21,6 +21,10 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, terminado.TermS
 
     auth_resource = AUTH_RESOURCE
 
+    def initialize(self, name, term_manager, **kwargs):
+        terminado.TermSocket.initialize(self, term_manager, **kwargs)
+        TerminalsMixin.initialize(self, name)
+
     def origin_check(self):
         """Terminado adds redundant origin_check
         Tornado already calls check_origin, so don't do anything here.
