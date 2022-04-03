@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.2.0
+
+([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.1.0...22d210ea50fb27bcda9a2a781bef6790c509f9a8))
+
+### Enhancements made
+
+- More Cleanup [#12](https://github.com/jupyter-server/jupyter_server_terminals/pull/12) ([@blink1073](https://github.com/blink1073))
+- Add authorization [#11](https://github.com/jupyter-server/jupyter_server_terminals/pull/11) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2022-04-02&to=2022-04-03&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2022-04-02..2022-04-03&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.1.0
 
 ([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/0.0.1...c849eb024b37e98004f9f2038a19d2227d0923a4))
@@ -32,5 +49,3 @@ All notable changes to this project will be documented in this file.
 ([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2021-12-26&to=2022-04-02&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2021-12-26..2022-04-02&type=Issues) | [@jweill-aws](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ajweill-aws+updated%3A2021-12-26..2022-04-02&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Awelcome+updated%3A2021-12-26..2022-04-02&type=Issues) | [@Wh1isper](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3AWh1isper+updated%3A2021-12-26..2022-04-02&type=Issues) | [@Zsailer](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3AZsailer+updated%3A2021-12-26..2022-04-02&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
