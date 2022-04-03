@@ -8,13 +8,19 @@ from .base import TerminalsMixin
 
 try:
     from jupyter_server._tz import utcnow
+    from jupyter_server.auth.utils import warn_disabled_authorization
     from jupyter_server.base.handlers import JupyterHandler
     from jupyter_server.base.zmqhandlers import WebSocketMixin
 except ModuleNotFoundError:
     raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
 
+AUTH_RESOURCE = "terminals"
+
 
 class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, terminado.TermSocket):
+
+    auth_resource = AUTH_RESOURCE
+
     def origin_check(self):
         """Terminado adds redundant origin_check
         Tornado already calls check_origin, so don't do anything here.
@@ -22,8 +28,18 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, terminado.TermS
         return True
 
     def get(self, *args, **kwargs):
-        if not self.get_current_user():
+        user = self.current_user
+
+        if not user:
             raise web.HTTPError(403)
+
+        # authorize the user.
+        if not self.authorizer:
+            # Warn if there is not authorizer.
+            warn_disabled_authorization()
+        elif not self.authorizer.is_authorized(self, user, "execute", self.auth_resource):
+            raise web.HTTPError(403)
+
         if not args[0] in self.term_manager.terminals:
             raise web.HTTPError(404)
         return super().get(*args, **kwargs)
