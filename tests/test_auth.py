@@ -1,11 +1,9 @@
 """Tests for authorization"""
+import asyncio
 
 import pytest
-from jupyter_client.kernelspec import NATIVE_KERNEL_NAME
 from jupyter_server.auth.authorizer import Authorizer
 from jupyter_server.auth.utils import HTTP_METHOD_TO_AUTH_ACTION, match_url_to_resource
-from nbformat import writes
-from nbformat.v4 import new_notebook
 from tornado.httpclient import HTTPClientError
 from tornado.websocket import WebSocketHandler
 from traitlets.config import Config
@@ -123,7 +121,6 @@ async def test_authorized_requests(
     request,
     io_loop,
     send_request,
-    tmp_path,
     jp_serverapp,
     jp_cleanup_subprocesses,
     method,
@@ -131,29 +128,12 @@ async def test_authorized_requests(
     body,
     allowed,
 ):
-    # Setup stuff for the Contents API
-    # Add a notebook on disk
-    contents_dir = tmp_path / jp_serverapp.root_dir
-    p = contents_dir / "dir_for_testing"
-    p.mkdir(parents=True, exist_ok=True)
+    term_manager = jp_serverapp.web_app.settings["terminal_manager"]
+    request.addfinalizer(lambda: io_loop.run_sync(term_manager.terminate_all))
+    term_model = term_manager.create()
+    term_name = term_model["name"]
 
-    # Create a notebook
-    nb = writes(new_notebook(), version=4)
-    nbname = p.joinpath("nb_for_testing.ipynb")
-    nbname.write_text(nb, encoding="utf-8")
-
-    # Setup
-    nbpath = "dir_for_testing/nb_for_testing.ipynb"
-    kernelspec = NATIVE_KERNEL_NAME
-    km = jp_serverapp.kernel_manager
-
-    if "terminal" in url:
-        term_manager = jp_serverapp.web_app.settings["terminal_manager"]
-        request.addfinalizer(lambda: io_loop.run_sync(term_manager.terminate_all))
-        term_model = term_manager.create()
-        term_name = term_model["name"]
-
-    url = url.format(**locals())
+    url = url.format(term_name=term_name)
     if allowed:
         # Create a server with full permissions
         permissions = {
@@ -168,7 +148,12 @@ async def test_authorized_requests(
         expected_codes = {403}
     jp_serverapp.authorizer.permissions = permissions
 
-    code = await send_request(url, body=body, method=method)
-    assert code in expected_codes
+    while True:
+        code = await send_request(url, body=body, method=method)
+        if code == 404:
+            await asyncio.sleep(1)
+            continue
+        assert code in expected_codes
+        break
 
     await jp_cleanup_subprocesses()
