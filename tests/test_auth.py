@@ -175,5 +175,6 @@ async def test_authorized_requests(
             await asyncio.sleep(1)
             continue
         assert code in expected_codes
+        break
 
     await jp_cleanup_subprocesses()
