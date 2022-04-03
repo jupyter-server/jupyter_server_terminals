@@ -5,18 +5,28 @@ from tornado import web
 from .base import TerminalsMixin
 
 try:
+    from jupyter_server.auth import authorized
     from jupyter_server.base.handlers import APIHandler
 except ModuleNotFoundError:
     raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
 
 
-class TerminalRootHandler(TerminalsMixin, APIHandler):
+AUTH_RESOURCE = "terminals"
+
+
+class TerminalAPIHandler(APIHandler):
+    auth_resource = AUTH_RESOURCE
+
+
+class TerminalRootHandler(TerminalsMixin, TerminalAPIHandler):
     @web.authenticated
+    @authorized
     def get(self):
         models = self.terminal_manager.list()
         self.finish(json.dumps(models))
 
     @web.authenticated
+    @authorized
     def post(self):
         """POST /terminals creates a new terminal and redirects to it"""
         data = self.get_json_body() or {}
@@ -25,15 +35,17 @@ class TerminalRootHandler(TerminalsMixin, APIHandler):
         self.finish(json.dumps(model))
 
 
-class TerminalHandler(TerminalsMixin, APIHandler):
+class TerminalHandler(TerminalsMixin, TerminalAPIHandler):
     SUPPORTED_METHODS = ("GET", "DELETE")
 
     @web.authenticated
+    @authorized
     def get(self, name):
         model = self.terminal_manager.get(name)
         self.finish(json.dumps(model))
 
     @web.authenticated
+    @authorized
     async def delete(self, name):
         await self.terminal_manager.terminate(name, force=True)
         self.set_status(204)

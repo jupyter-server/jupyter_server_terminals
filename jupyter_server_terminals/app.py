@@ -72,6 +72,7 @@ class TerminalsExtensionApp(ExtensionApp):
             )
         )
         self.handlers.extend(api_handlers.default_handlers)
+        self.serverapp.web_app.settings["terminal_manager"] = self.terminal_manager
 
     def current_activity(self):
         if self.terminals_available:
