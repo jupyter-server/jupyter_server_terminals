@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import Optional
 
 from tornado import web
 
@@ -36,7 +37,8 @@ class TerminalRootHandler(TerminalsMixin, TerminalAPIHandler):
         # but if we pass it as relative, it will we be considered as relative to
         # the path jupyter_server was started in
         if "cwd" in data:
-            cwd = Path(data["cwd"])
+            cwd: Optional[Path] = Path(data["cwd"])
+            assert cwd is not None
             if not cwd.resolve().exists():
                 cwd = Path(self.settings["server_root_dir"]).expanduser() / cwd
                 if not cwd.resolve().exists():
