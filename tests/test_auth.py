@@ -1,5 +1,6 @@
 """Tests for authorization"""
 import asyncio
+from typing import Dict
 
 import pytest
 from jupyter_server.auth.authorizer import Authorizer
@@ -14,7 +15,7 @@ class AuthorizerforTesting(Authorizer):
     # Set these class attributes from within a test
     # to verify that they match the arguments passed
     # by the REST API.
-    permissions = {}
+    permissions: Dict[str, str] = {}
 
     def normalize_url(self, path):
         """Drop the base URL and make sure path leads with a /"""

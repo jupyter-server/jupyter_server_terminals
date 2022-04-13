@@ -20,6 +20,31 @@ filterwarnings = [
   "ignore:There is no current event loop:DeprecationWarning",
 ]
 
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+no_implicit_reexport = true
+pretty = true
+show_error_context = true
+show_error_codes = true
+strict_equality = true
+strict_optional = true
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = [
+  "traitlets.*",
+  "jupyter_server.*",
+  "terminado"
+]
+ignore_missing_imports = true
+
 [tool.jupyter-releaser]
 skip = ["check-links"]
 

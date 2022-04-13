@@ -40,7 +40,7 @@ class TerminalsExtensionApp(ExtensionApp):
         if os.name == "nt":
             default_shell = "powershell.exe"
         else:
-            default_shell = which("sh")
+            default_shell = which("sh")  # type:ignore[assignment]
         shell_override = self.serverapp.terminado_settings.get("shell_command")
         shell = (
             [os.environ.get("SHELL") or default_shell] if shell_override is None else shell_override
