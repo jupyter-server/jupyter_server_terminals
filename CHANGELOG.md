@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.3.0
+
+([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.2.1...3e59b7ca4ebdbf3e1535b4be3a973f2f419ae49f))
+
+### Maintenance and upkeep improvements
+
+- Use alpha release of server 2.0 [#25](https://github.com/jupyter-server/jupyter_server_terminals/pull/25) ([@blink1073](https://github.com/blink1073))
+- Switch to flit build backend [#24](https://github.com/jupyter-server/jupyter_server_terminals/pull/24) ([@blink1073](https://github.com/blink1073))
+- Allow bot PRs to be auto-labeled [#23](https://github.com/jupyter-server/jupyter_server_terminals/pull/23) ([@blink1073](https://github.com/blink1073))
+- [pre-commit.ci] pre-commit autoupdate [#22](https://github.com/jupyter-server/jupyter_server_terminals/pull/22) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- [pre-commit.ci] pre-commit autoupdate [#21](https://github.com/jupyter-server/jupyter_server_terminals/pull/21) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- Add mypy check [#20](https://github.com/jupyter-server/jupyter_server_terminals/pull/20) ([@blink1073](https://github.com/blink1073))
+- [pre-commit.ci] pre-commit autoupdate [#19](https://github.com/jupyter-server/jupyter_server_terminals/pull/19) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- Clean up pre-commit [#18](https://github.com/jupyter-server/jupyter_server_terminals/pull/18) ([@blink1073](https://github.com/blink1073))
+- [pre-commit.ci] pre-commit autoupdate [#17](https://github.com/jupyter-server/jupyter_server_terminals/pull/17) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2022-04-03&to=2022-05-03&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2022-04-03..2022-05-03&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2022-04-03..2022-05-03&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.2.1
 
 ([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.2.0...e33b367c81cfb42bf4b903a75f8cd2ae7f400f64))
@@ -17,8 +41,6 @@ All notable changes to this project will be documented in this file.
 ([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2022-04-03&to=2022-04-03&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2022-04-03..2022-04-03&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.2.0
 
