@@ -1,9 +1,53 @@
 [build-system]
-requires = ["jupyter_packaging~=0.9", "jupyter_server"]
-build-backend = "jupyter_packaging.build_api"
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
 
-[tool.check-manifest]
-ignore = [""]
+[project]
+name = "jupyter_server_terminals"
+license = { file = "LICENSE" }
+description = "A Jupyter Server Extension Providing Terminals."
+keywords = ["ipython", "jupyter"]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Intended Audience :: System Administrators",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: BSD License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10"
+]
+requires-python = ">=3.7"
+dependencies = [
+  "pywinpty>=2.0.3;os_name=='nt'",
+  "terminado>=0.8.3",
+]
+dynamic = ["version"]
+
+[[project.authors]]
+name = "Jupyter Development Team"
+email = "jupyter@googlegroups.com"
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[project.urls]
+Homepage = "https://jupyter.org"
+
+[project.optional-dependencies]
+test = [
+  "coverage",
+  "jupyter_server[test]",
+  "pytest>=6.0",
+  "pytest_tornasync",
+  "pytest-cov",
+  "pytest-timeout",
+]
+
+[tool.flit.sdist]
+include = ["tests/"]
 
 [tool.pytest.ini_options]
 addopts = "-raXs --durations 10 --color=yes --doctest-modules"
