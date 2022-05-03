@@ -46,6 +46,9 @@ test = [
   "pytest-timeout",
 ]
 
+[tool.flit.external-data]
+directory = "jupyter-config"
+
 [tool.flit.sdist]
 include = ["tests/"]
 
