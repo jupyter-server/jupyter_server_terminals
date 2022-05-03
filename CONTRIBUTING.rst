@@ -24,7 +24,7 @@ The development version of the server requires `node <https://nodejs.org/en/down
 Once you have installed the dependencies mentioned above, use the following
 steps::
 
-    pip install --upgrade setuptools pip
+    pip install --upgrade pip
     git clone https://github.com/jupyter/jupyter_server_terminals
     cd jupyter_server_terminals
     pip install -e .
