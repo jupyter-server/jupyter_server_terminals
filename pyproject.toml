@@ -39,7 +39,7 @@ Homepage = "https://jupyter.org"
 [project.optional-dependencies]
 test = [
   "coverage",
-  "jupyter_server[test]",
+  "jupyter_server[test] @ git+https://github.com/jupyter-server/jupyter_server.git@main",
   "pytest>=6.0",
   "pytest_tornasync",
   "pytest-cov",
