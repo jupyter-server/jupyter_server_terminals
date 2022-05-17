@@ -1,9 +1,10 @@
 [build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
+requires = ["hatchling>=0.25"]
+build-backend = "hatchling.build"
 
 [project]
 name = "jupyter_server_terminals"
+version = "0.3.0"
 license = { file = "LICENSE" }
 description = "A Jupyter Server Extension Providing Terminals."
 keywords = ["ipython", "jupyter"]
@@ -23,7 +24,6 @@ dependencies = [
   "pywinpty>=2.0.3;os_name=='nt'",
   "terminado>=0.8.3",
 ]
-dynamic = ["version"]
 
 [[project.authors]]
 name = "Jupyter Development Team"
@@ -46,11 +46,8 @@ test = [
   "pytest-timeout",
 ]
 
-[tool.flit.external-data]
-directory = "jupyter-config"
-
-[tool.flit.sdist]
-include = ["tests/"]
+[tool.hatch.build.targets.wheel.shared-data]
+"jupyter-config" = "etc/jupyter/jupyter_server_config.d"
 
 [tool.pytest.ini_options]
 addopts = "-raXs --durations 10 --color=yes --doctest-modules"
@@ -113,6 +110,9 @@ version_template = '{major}.{minor}.{patch}{channel}{release}'
 [[tool.tbump.file]]
 src = "docs/source/conf.py"
 version_template = '{major}.{minor}.{patch}{channel}{release}'
+
+[[tool.tbump.file]]
+src = "pyproject.toml"
 
 [[tool.tbump.field]]
 name = "channel"
