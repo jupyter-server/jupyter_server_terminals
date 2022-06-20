@@ -61,7 +61,9 @@ filterwarnings = [
   "error",
   # From tornado
   "ignore:unclosed <socket.socket:ResourceWarning",
-  "ignore:There is no current event loop:DeprecationWarning",
+  "module:make_current is deprecated:DeprecationWarning",
+  "module:clear_current is deprecated:DeprecationWarning",
+  "module:There is no current event loop:DeprecationWarning",
 ]
 
 [tool.mypy]
