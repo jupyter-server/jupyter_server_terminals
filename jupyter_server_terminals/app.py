@@ -1,4 +1,5 @@
 import os
+import shlex
 import sys
 from shutil import which
 
@@ -42,6 +43,8 @@ class TerminalsExtensionApp(ExtensionApp):
         else:
             default_shell = which("sh")  # type:ignore[assignment]
         shell_override = self.serverapp.terminado_settings.get("shell_command")
+        if isinstance(shell_override, str):
+            shell_override = shlex.split(shell_override)
         shell = (
             [os.environ.get("SHELL") or default_shell] if shell_override is None else shell_override
         )
