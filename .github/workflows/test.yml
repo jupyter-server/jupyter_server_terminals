@@ -128,3 +128,11 @@ jobs:
       - uses: jupyterlab/maintainer-tools/.github/actions/test-sdist@v1
         with:
           extra_test: 'jupyter server extension list 2>&1 | grep -ie "jupyter_server_terminals.*OK"'
+
+  check_links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1

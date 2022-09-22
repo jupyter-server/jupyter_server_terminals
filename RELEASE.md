@@ -11,7 +11,7 @@ To create a manual release, perform the following steps:
 ### Set up
 
 ```bash
-pip install tbump twine build
+pip install pipx
 git pull origin $(git branch --show-current)
 git clean -dffx
 ```
@@ -21,14 +21,15 @@ git clean -dffx
 ```bash
 echo "Enter new version"
 read script_version
-tbump ${script_version}
+pipx run hatch version ${script_version}
+git tag -a ${script_version} -m "${script_version}"
 ```
 
 ### Build the artifacts
 
 ```bash
 rm -rf dist
-python -m build .
+pipx run build .
 ```
 
 ### Update the version back to dev
@@ -36,13 +37,13 @@ python -m build .
 ```bash
 echo "Enter dev version"
 read dev_version
-tbump ${dev_version} --no-tag
+pipx run hatch version ${dev_version}
 git push origin $(git branch --show-current)
 ```
 
 ### Publish the artifacts to pypi
 
 ```bash
-twine check dist/*
-twine upload dist/*
+pipx run twine check dist/*
+pipx run twine upload dist/*
 ```
