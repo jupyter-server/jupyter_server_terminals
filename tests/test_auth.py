@@ -7,7 +7,7 @@ from jupyter_server.auth.authorizer import Authorizer
 from jupyter_server.auth.utils import HTTP_METHOD_TO_AUTH_ACTION, match_url_to_resource
 from tornado.httpclient import HTTPClientError
 from tornado.websocket import WebSocketHandler
-from traitlets.config import Config
+from traitlets.config.loader import Config
 
 
 class AuthorizerforTesting(Authorizer):

@@ -7,7 +7,7 @@ from tornado import web
 from .base import TerminalsMixin
 
 try:
-    from jupyter_server.auth import authorized
+    from jupyter_server.auth.decorator import authorized
     from jupyter_server.base.handlers import APIHandler
 except ModuleNotFoundError:
     raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
@@ -60,7 +60,7 @@ class TerminalRootHandler(TerminalsMixin, TerminalAPIHandler):
 
 
 class TerminalHandler(TerminalsMixin, TerminalAPIHandler):
-    SUPPORTED_METHODS = ("GET", "DELETE")
+    SUPPORTED_METHODS = ("GET", "DELETE")  # type:ignore[assignment]
 
     @web.authenticated
     @authorized
