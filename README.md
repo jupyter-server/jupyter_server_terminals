@@ -9,7 +9,9 @@ Jupyter Server Terminals is a Jupyter Server Extension providing support for ter
 To install the latest release locally, make sure you have
 [pip installed](https://pip.readthedocs.io/en/stable/installing/) and run:
 
-    pip install jupyter_server_terminals
+```
+pip install jupyter_server_terminals
+```
 
 Jupyter Server Terminals currently supports Python>=3.6 on Linux, OSX and Windows.
 
