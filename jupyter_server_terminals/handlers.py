@@ -1,7 +1,6 @@
 """Tornado handlers for the terminal emulator."""
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-import terminado
 from terminado.websocket import TermSocket as BaseTermSocket
 from tornado import web
 
