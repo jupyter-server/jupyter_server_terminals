@@ -7,4 +7,4 @@ except ModuleNotFoundError:
 class TerminalsMixin(ExtensionHandlerMixin):
     @property
     def terminal_manager(self):
-        return self.settings["terminal_manager"]
+        return self.settings["terminal_manager"]  # type:ignore[attr-defined]

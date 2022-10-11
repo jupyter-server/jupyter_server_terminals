@@ -1,7 +1,7 @@
 """Tornado handlers for the terminal emulator."""
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-import terminado
+from terminado.websocket import TermSocket as BaseTermSocket
 from tornado import web
 
 from .base import TerminalsMixin
@@ -17,12 +17,12 @@ except ModuleNotFoundError:
 AUTH_RESOURCE = "terminals"
 
 
-class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, terminado.TermSocket):
+class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket):
 
     auth_resource = AUTH_RESOURCE
 
     def initialize(self, name, term_manager, **kwargs):
-        terminado.TermSocket.initialize(self, term_manager, **kwargs)
+        BaseTermSocket.initialize(self, term_manager, **kwargs)
         TerminalsMixin.initialize(self, name)
 
     def origin_check(self):

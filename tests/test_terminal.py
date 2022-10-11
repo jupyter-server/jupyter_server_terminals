@@ -6,7 +6,7 @@ import sys
 
 import pytest
 from tornado.httpclient import HTTPClientError
-from traitlets.config import Config
+from traitlets.config.loader import Config
 
 
 @pytest.fixture
