@@ -11,7 +11,7 @@ from .terminalmanager import TerminalManager
 try:
     from jupyter_server.extension.application import ExtensionApp
     from jupyter_server.transutils import trans
-    from jupyter_server.utils import run_sync_in_loop
+    from jupyter_server.utils import ensure_async
 except ModuleNotFoundError:
     raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
 
@@ -101,7 +101,7 @@ class TerminalsExtensionApp(ExtensionApp):
             "Shutting down %d terminal", "Shutting down %d terminals", n_terminals
         )
         self.log.info(terminal_msg % n_terminals)
-        await run_sync_in_loop(terminal_manager.terminate_all())
+        await ensure_async(terminal_manager.terminate_all())
 
     async def stop_extension(self):
         await self.cleanup_terminals()
