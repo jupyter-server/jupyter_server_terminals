@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.3.2
+
+([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.3.1...574e1018b7d924f09c1ca45389182f1fd314caee))
+
+### Maintenance and upkeep improvements
+
+- Use ensure_async function [#54](https://github.com/jupyter-server/jupyter_server_terminals/pull/54) ([@blink1073](https://github.com/blink1073))
+- Maintenance cleanup [#51](https://github.com/jupyter-server/jupyter_server_terminals/pull/51) ([@blink1073](https://github.com/blink1073))
+- Maintenance cleanup [#50](https://github.com/jupyter-server/jupyter_server_terminals/pull/50) ([@blink1073](https://github.com/blink1073))
+- Ignore warnings in prerelease test [#47](https://github.com/jupyter-server/jupyter_server_terminals/pull/47) ([@blink1073](https://github.com/blink1073))
+- Clean up pyproject and ci [#45](https://github.com/jupyter-server/jupyter_server_terminals/pull/45) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2022-09-08&to=2022-10-31&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2022-09-08..2022-10-31&type=Issues) | [@codecov-commenter](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Acodecov-commenter+updated%3A2022-09-08..2022-10-31&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2022-09-08..2022-10-31&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.3.1
 
 ([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.3.0...6d8b60bc758adc8656ff530a600fb7f57a34259e))
@@ -35,8 +55,6 @@ All notable changes to this project will be documented in this file.
 ([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2022-05-03&to=2022-09-08&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2022-05-03..2022-09-08&type=Issues) | [@codecov-commenter](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Acodecov-commenter+updated%3A2022-05-03..2022-09-08&type=Issues) | [@krassowski](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Akrassowski+updated%3A2022-05-03..2022-09-08&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2022-05-03..2022-09-08&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Awelcome+updated%3A2022-05-03..2022-09-08&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.0
 
