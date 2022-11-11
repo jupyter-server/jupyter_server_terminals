@@ -123,7 +123,6 @@ async def test_authorized_requests(
     io_loop,
     send_request,
     jp_serverapp,
-    jp_cleanup_subprocesses,
     method,
     url,
     body,
@@ -156,5 +155,3 @@ async def test_authorized_requests(
             continue
         assert code in expected_codes
         break
-
-    await jp_cleanup_subprocesses()
