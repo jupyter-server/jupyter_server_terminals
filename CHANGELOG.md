@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.0
+
+([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.3.2...6aa63b9c7cfcbe44da7d65964f2b84e0a3a7c83c))
+
+### Maintenance and upkeep improvements
+
+- Add ability to release from repo [#59](https://github.com/jupyter-server/jupyter_server_terminals/pull/59) ([@blink1073](https://github.com/blink1073))
+- Handle jupyter core warning [#58](https://github.com/jupyter-server/jupyter_server_terminals/pull/58) ([@blink1073](https://github.com/blink1073))
+- Bump actions/checkout from 2 to 3 [#57](https://github.com/jupyter-server/jupyter_server_terminals/pull/57) ([@dependabot](https://github.com/dependabot))
+- Add dependabot [#56](https://github.com/jupyter-server/jupyter_server_terminals/pull/56) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2022-10-31&to=2022-11-11&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2022-10-31..2022-11-11&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Adependabot+updated%3A2022-10-31..2022-11-11&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2022-10-31..2022-11-11&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.3.2
 
 ([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.3.1...574e1018b7d924f09c1ca45389182f1fd314caee))
@@ -21,8 +40,6 @@ All notable changes to this project will be documented in this file.
 ([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2022-09-08&to=2022-10-31&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2022-09-08..2022-10-31&type=Issues) | [@codecov-commenter](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Acodecov-commenter+updated%3A2022-09-08..2022-10-31&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2022-09-08..2022-10-31&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.1
 
