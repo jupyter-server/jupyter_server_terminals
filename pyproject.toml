@@ -20,7 +20,7 @@ classifiers = [
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10"
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 dependencies = [
   "pywinpty>=2.0.3;os_name=='nt'",
   "terminado>=0.8.3",
@@ -36,11 +36,24 @@ Homepage = "https://jupyter.org"
 [project.optional-dependencies]
 test = [
   "coverage",
-  "jupyter_server[test]>=2.0.0rc0",
+  "jupyter_server[test]>=2.0.0rc3",
   "pytest>=7.0",
   "pytest_tornasync",
   "pytest-cov",
   "pytest-timeout",
+]
+docs = [
+"jinja2",
+"jupyter_server",
+"mistune<2.0",  # https://github.com/jupyter/nbconvert/issues/1685"
+"myst-parser",
+"nbformat",
+"packaging",
+"tornado",
+"pydata_sphinx_theme",
+"sphinxcontrib-openapi",
+"sphinxcontrib_github_alt",
+"sphinxemoji",
 ]
 
 [tool.hatch.version]
@@ -48,6 +61,25 @@ path = "jupyter_server_terminals/_version.py"
 
 [tool.hatch.build.targets.wheel.shared-data]
 "jupyter-config" = "etc/jupyter/jupyter_server_config.d"
+
+
+[tool.hatch.envs.docs]
+features = ["docs"]
+[tool.hatch.envs.docs.scripts]
+build = "make -C docs html SPHINXOPTS='-W'"
+
+[tool.hatch.envs.test]
+features = ["test"]
+[tool.hatch.envs.test.scripts]
+test = "python -m pytest -vv {args}"
+nowarn = "test -W default {args}"
+
+[tool.hatch.envs.cov]
+features = ["test"]
+dependencies = ["coverage", "pytest-cov"]
+[tool.hatch.envs.cov.scripts]
+test = "python -m pytest -vv --cov jupyter_server_terminals --cov-branch --cov-report term-missing:skip-covered {args}"
+nowarn = "test -W default {args}"
 
 [tool.pytest.ini_options]
 addopts = "-raXs --durations 10 --color=yes --doctest-modules"
@@ -59,11 +91,8 @@ timeout = 300
 # timeout_method = "thread"
 filterwarnings = [
   "error",
-  # From tornado
+  # from tornado
   "ignore:unclosed <socket.socket:ResourceWarning",
-  "module:make_current is deprecated:DeprecationWarning",
-  "module:clear_current is deprecated:DeprecationWarning",
-  "module:There is no current event loop:DeprecationWarning",
   # From juypter core
   "module:Jupyter is migrating its paths to use standard platformdirs:DeprecationWarning",
 ]
