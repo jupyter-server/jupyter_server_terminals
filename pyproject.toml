@@ -20,7 +20,7 @@ classifiers = [
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10"
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 dependencies = [
   "pywinpty>=2.0.3;os_name=='nt'",
   "terminado>=0.8.3",
