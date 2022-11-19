@@ -42,6 +42,19 @@ test = [
   "pytest-cov",
   "pytest-timeout",
 ]
+docs = [
+"jinja2",
+"jupyter_server",
+"mistune<2.0",  # https://github.com/jupyter/nbconvert/issues/1685"
+"myst-parser",
+"nbformat",
+"packaging",
+"tornado",
+"pydata_sphinx_theme",
+"sphinxcontrib-openapi",
+"sphinxcontrib_github_alt",
+"sphinxemoji",
+]
 
 [tool.hatch.version]
 path = "jupyter_server_terminals/_version.py"
