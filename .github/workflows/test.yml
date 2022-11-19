@@ -7,8 +7,12 @@ on:
   schedule:
     - cron: "0 8 * * *"
 
+defaults:
+  run:
+    shell: bash -eux {0}
+
 jobs:
-  pre-commit:
+  pre_commit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -22,14 +26,14 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ["3.7", "3.10"]
+        python-version: ["3.7", "3.11"]
         include:
           - os: windows-latest
             python-version: "3.9"
           - os: ubuntu-latest
             python-version: "pypy-3.8"
           - os: ubuntu-latest
-            python-version: "3.11-dev"
+            python-version: "3.10"
           - os: macos-latest
             python-version: "3.8"
     steps:
@@ -37,26 +41,21 @@ jobs:
         uses: actions/checkout@v3
       - name: Base Setup
         uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
-      - name: Install the Python dependencies
+      - name: Run the tests
         run: |
-          pip install -e ".[test]"
-      - name: List installed packages
-        run: |
-          pip freeze
-          pip check
-      - name: Run the tests with Coverage
-        if: ${{ !startsWith(matrix.python-version, 'pypy') && !startsWith(runner.os, 'Windows') }}
-        run: |
-          pytest -vv --cov jupyter_server_terminals --cov-branch --cov-report term-missing:skip-covered || pytest -vv --lf
-      - name: Run the tests on pypy and Windows
-        if: ${{ startsWith(matrix.python-version, 'pypy') || startsWith(runner.os, 'Windows') }}
-        run: |
-          pytest -vv || pytest -vv --lf
+          hatch run cov:test --cov-fail-under 75 || hatch run test:test --lf
       - name: Coverage
-        if: ${{ !startsWith(matrix.python-version, 'pypy') && !startsWith(runner.os, 'Windows') }}
         run: |
           pip install codecov
           codecov
+
+  test_docs:
+    name: Test Docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - run: hatch run docs:build
 
   test_minimum_versions:
     name: Test Minimum Versions
@@ -64,35 +63,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
         with:
-          python_version: "3.7"
-      - name: Install miniumum versions
-        uses: jupyterlab/maintainer-tools/.github/actions/install-minimums@v1
+          python_version: "3.8"
+      - uses: jupyterlab/maintainer-tools/.github/actions/install-minimums@v1
+        with:
+          only_create_file: 1
       - name: Run the unit tests
         run: |
-          pytest -vv -W default || pytest -vv -W default --lf
+          export PIP_CONSTRAINT="./contraints_file.txt"
+          hatch run test:nowarn || hatch run test:nowarn --lf
 
   test_prereleases:
     name: Test Prereleases
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
-      - name: Install the Python dependencies
-        run: |
-          pip install --pre -e ".[test]"
-      - name: List installed packages
-        run: |
-          pip freeze
-          pip check
+      - uses: actions/checkout@v3
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+        with:
+          python_version: "3.11"
       - name: Run the tests
         run: |
-          pytest -vv -W default || pytest -vv -W default --lf
+          export PIP_PRE=1
+          hatch run test:nowarn || hatch run test:nowarn --lf
 
   make_sdist:
     name: Make SDist
@@ -136,3 +130,21 @@ jobs:
       - uses: actions/checkout@v3
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1
+
+  tests_check: # This job does nothing and is only used for the branch protection
+    if: always()
+    needs:
+      - test
+      - pre_commit
+      - test_docs
+      - test_minimum_versions
+      - test_prereleases
+      - check_links
+      - check_release
+      - test_sdist
+    runs-on: ubuntu-latest
+    steps:
+      - name: Decide whether the needed jobs succeeded or failed
+        uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}
