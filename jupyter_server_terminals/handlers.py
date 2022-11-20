@@ -10,7 +10,7 @@ try:
     from jupyter_server._tz import utcnow
     from jupyter_server.auth.utils import warn_disabled_authorization
     from jupyter_server.base.handlers import JupyterHandler
-    from jupyter_server.base.zmqhandlers import WebSocketMixin
+    from jupyter_server.base.websocket import WebSocketMixin
 except ModuleNotFoundError:
     raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
 
