@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.1
+
+([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.4.0...37da434a24475daf674e1711edc53af52dd6957d))
+
+### Maintenance and upkeep improvements
+
+- Switch away from deprecated zmqhandlers module in Jupyter Server 2.0 [#62](https://github.com/jupyter-server/jupyter_server_terminals/pull/62) ([@Zsailer](https://github.com/Zsailer))
+- CI Cleanup [#61](https://github.com/jupyter-server/jupyter_server_terminals/pull/61) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2022-11-11&to=2022-11-21&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2022-11-11..2022-11-21&type=Issues) | [@codecov](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Acodecov+updated%3A2022-11-11..2022-11-21&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2022-11-11..2022-11-21&type=Issues) | [@Zsailer](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3AZsailer+updated%3A2022-11-11..2022-11-21&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.0
 
 ([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.3.2...6aa63b9c7cfcbe44da7d65964f2b84e0a3a7c83c))
@@ -20,8 +37,6 @@ All notable changes to this project will be documented in this file.
 ([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2022-10-31&to=2022-11-11&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2022-10-31..2022-11-11&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Adependabot+updated%3A2022-10-31..2022-11-11&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2022-10-31..2022-11-11&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.2
 
