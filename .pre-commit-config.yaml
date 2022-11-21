@@ -67,7 +67,7 @@ repos:
       - id: mypy
         exclude: jupyter_client/tests
         args: ["--config-file", "pyproject.toml"]
-        additional_dependencies: [tornado, pytest, traitlets, jupyter_server, terminado]
+        additional_dependencies: [tornado, pytest, traitlets, jupyter_server>=2.0.0rc5, terminado]
         stages: [manual]
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
