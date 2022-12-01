@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.2
+
+([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.4.1...744451298913d2c2d81698f94d16dfb595df897f))
+
+### Maintenance and upkeep improvements
+
+- Use pytest-jupyter [#67](https://github.com/jupyter-server/jupyter_server_terminals/pull/67) ([@blink1073](https://github.com/blink1073))
+- Fixup workflows and add badges [#64](https://github.com/jupyter-server/jupyter_server_terminals/pull/64) ([@blink1073](https://github.com/blink1073))
+
+### Documentation improvements
+
+- Fixup workflows and add badges [#64](https://github.com/jupyter-server/jupyter_server_terminals/pull/64) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2022-11-21&to=2022-12-01&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2022-11-21..2022-12-01&type=Issues) | [@codecov](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Acodecov+updated%3A2022-11-21..2022-12-01&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2022-11-21..2022-12-01&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.1
 
 ([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.4.0...37da434a24475daf674e1711edc53af52dd6957d))
@@ -18,8 +39,6 @@ All notable changes to this project will be documented in this file.
 ([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2022-11-11&to=2022-11-21&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2022-11-11..2022-11-21&type=Issues) | [@codecov](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Acodecov+updated%3A2022-11-11..2022-11-21&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2022-11-11..2022-11-21&type=Issues) | [@Zsailer](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3AZsailer+updated%3A2022-11-11..2022-11-21&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.0
 
