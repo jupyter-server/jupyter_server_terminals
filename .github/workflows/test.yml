@@ -66,7 +66,7 @@ jobs:
           dependency_type: minimum
       - name: Run the unit tests
         run: |
-          hatch run test:nowarn || hatch run test:nowarn --lf
+          hatch -vv run test:nowarn || hatch run test:nowarn --lf
 
   test_prereleases:
     name: Test Prereleases
@@ -79,7 +79,7 @@ jobs:
           dependency_type: pre
       - name: Run the tests
         run: |
-          hatch -vv run test:nowarn || hatch run test:nowarn --lf
+          hatch run test:nowarn || hatch run test:nowarn --lf
 
   make_sdist:
     name: Make SDist

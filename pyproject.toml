@@ -36,7 +36,7 @@ Homepage = "https://jupyter.org"
 [project.optional-dependencies]
 test = [
   "coverage",
-  "jupyter_server>=1.20",
+  "jupyter_server>=1.23",
   "pytest-jupyter[server]>=0.5.3",
   "pytest>=7.0",
   "pytest-cov",
