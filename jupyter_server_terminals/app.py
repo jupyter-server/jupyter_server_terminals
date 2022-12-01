@@ -5,6 +5,7 @@ from shutil import which
 
 from traitlets import Type
 
+print("hi")
 from . import api_handlers, handlers
 from .terminalmanager import TerminalManager
 
