@@ -18,7 +18,7 @@ try:
         TERMINAL_CURRENTLY_RUNNING_TOTAL,
     )
 except ModuleNotFoundError:
-    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
+    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.") from None
 
 
 class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[misc]
@@ -86,7 +86,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
 
     async def terminate_all(self):
         """Terminate all terminals."""
-        terms = [name for name in self.terminals]
+        terms = list(self.terminals)
         for term in terms:
             await self.terminate(term, force=True)
 

@@ -9,11 +9,11 @@ from . import api_handlers, handlers
 from .terminalmanager import TerminalManager
 
 try:
+    from jupyter_core.utils import ensure_async
     from jupyter_server.extension.application import ExtensionApp
     from jupyter_server.transutils import trans
-    from jupyter_server.utils import ensure_async
 except ModuleNotFoundError:
-    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
+    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.") from None
 
 
 class TerminalsExtensionApp(ExtensionApp):
@@ -35,7 +35,9 @@ class TerminalsExtensionApp(ExtensionApp):
 
     def initialize_settings(self):
         self.initialize_configurables()
-        self.settings.update(dict(terminals_available=True, terminal_manager=self.terminal_manager))
+        self.settings.update(
+            {"terminals_available": True, "terminal_manager": self.terminal_manager}
+        )
 
     def initialize_configurables(self):
         if os.name == "nt":

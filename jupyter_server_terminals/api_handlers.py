@@ -10,7 +10,7 @@ try:
     from jupyter_server.auth.decorator import authorized
     from jupyter_server.base.handlers import APIHandler
 except ModuleNotFoundError:
-    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
+    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.") from None
 
 
 AUTH_RESOURCE = "terminals"
