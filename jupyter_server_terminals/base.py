@@ -1,7 +1,7 @@
 try:
     from jupyter_server.extension.handler import ExtensionHandlerMixin
 except ModuleNotFoundError:
-    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
+    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.") from None
 
 
 class TerminalsMixin(ExtensionHandlerMixin):

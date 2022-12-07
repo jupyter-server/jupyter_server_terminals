@@ -12,7 +12,7 @@ try:
     from jupyter_server.base.handlers import JupyterHandler
     from jupyter_server.base.websocket import WebSocketMixin
 except ModuleNotFoundError:
-    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.")
+    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.") from None
 
 AUTH_RESOURCE = "terminals"
 
@@ -44,7 +44,7 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
         elif not self.authorizer.is_authorized(self, user, "execute", self.auth_resource):
             raise web.HTTPError(403)
 
-        if not args[0] in self.term_manager.terminals:
+        if args[0] not in self.term_manager.terminals:
             raise web.HTTPError(404)
         return super().get(*args, **kwargs)
 
