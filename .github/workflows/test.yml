@@ -46,11 +46,11 @@ jobs:
       - name: Base Setup
         uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - name: Run the tests on pypy
-        if: ${{ startsWith("pypy", matrix.python-version )}}
+        if: ${{ startsWith('pypy', matrix.python-version) }}
         run: |
           hatch run test:nowarn || hatch run test:nowarn --lf
       - name: Run the tests
-        if: ${{ !startsWith("pypy", matrix.python-version )}}
+        if: ${{ !startsWith('pypy', matrix.python-version) }}
         run: |
           hatch run cov:test --cov-fail-under 75 || hatch run test:test --lf
       - name: Coverage
