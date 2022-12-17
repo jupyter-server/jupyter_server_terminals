@@ -1,18 +1,14 @@
 """Tornado handlers for the terminal emulator."""
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
+from jupyter_server._tz import utcnow
+from jupyter_server.auth.utils import warn_disabled_authorization
+from jupyter_server.base.handlers import JupyterHandler
+from jupyter_server.base.websocket import WebSocketMixin
 from terminado.websocket import TermSocket as BaseTermSocket
 from tornado import web
 
 from .base import TerminalsMixin
-
-try:
-    from jupyter_server._tz import utcnow
-    from jupyter_server.auth.utils import warn_disabled_authorization
-    from jupyter_server.base.handlers import JupyterHandler
-    from jupyter_server.base.websocket import WebSocketMixin
-except ModuleNotFoundError:
-    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.") from None
 
 AUTH_RESOURCE = "terminals"
 
