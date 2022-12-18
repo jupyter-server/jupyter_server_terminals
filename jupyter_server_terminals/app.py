@@ -3,17 +3,13 @@ import shlex
 import sys
 from shutil import which
 
+from jupyter_core.utils import ensure_async
+from jupyter_server.extension.application import ExtensionApp
+from jupyter_server.transutils import trans
 from traitlets import Type
 
 from . import api_handlers, handlers
 from .terminalmanager import TerminalManager
-
-try:
-    from jupyter_core.utils import ensure_async
-    from jupyter_server.extension.application import ExtensionApp
-    from jupyter_server.transutils import trans
-except ModuleNotFoundError:
-    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.") from None
 
 
 class TerminalsExtensionApp(ExtensionApp):

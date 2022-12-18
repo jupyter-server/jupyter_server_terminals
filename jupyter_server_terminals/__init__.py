@@ -1,11 +1,14 @@
 from ._version import __version__  # noqa:F401
 
 try:
-    from .app import TerminalsExtensionApp
+    from jupyter_server._version import version_info
 except ModuleNotFoundError:
-    import warnings
+    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.") from None
 
-    warnings.warn("Could not import submodules")
+if int(version_info[0]) < 2:  # type:ignore
+    raise RuntimeError("Jupyter Server Terminals requires Jupyter Server 2.0+")
+
+from .app import TerminalsExtensionApp
 
 
 def _jupyter_server_extension_points():  # pragma: no cover

@@ -6,19 +6,15 @@
 # Distributed under the terms of the Modified BSD License.
 from datetime import timedelta
 
+from jupyter_server._tz import isoformat, utcnow
+from jupyter_server.prometheus.metrics import (  # type:ignore[attr-defined]
+    TERMINAL_CURRENTLY_RUNNING_TOTAL,
+)
 from terminado.management import NamedTermManager
 from tornado import web
 from tornado.ioloop import IOLoop, PeriodicCallback
 from traitlets import Integer
 from traitlets.config import LoggingConfigurable
-
-try:
-    from jupyter_server._tz import isoformat, utcnow
-    from jupyter_server.prometheus.metrics import (  # type:ignore[attr-defined]
-        TERMINAL_CURRENTLY_RUNNING_TOTAL,
-    )
-except ModuleNotFoundError:
-    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.") from None
 
 
 class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[misc]
