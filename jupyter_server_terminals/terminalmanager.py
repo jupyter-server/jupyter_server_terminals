@@ -18,7 +18,7 @@ from traitlets.config import LoggingConfigurable
 
 
 class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[misc]
-    """ """
+    """A MultiTerminalManager for use in the notebook webserver"""
 
     _culler_callback = None
 
@@ -41,9 +41,6 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
     # -------------------------------------------------------------------------
     # Methods for managing terminals
     # -------------------------------------------------------------------------
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     def create(self, **kwargs):
         """Create a new terminal."""
         name, term = self.new_named_terminal(**kwargs)
@@ -166,4 +163,5 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
                 await self.terminate(name, force=True)
 
     def pre_pty_read_hook(self, ptywclients):
+        """The pre-pty read hook."""
         ptywclients.last_activity = utcnow()
