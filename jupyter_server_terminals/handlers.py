@@ -14,10 +14,12 @@ AUTH_RESOURCE = "terminals"
 
 
 class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket):
+    """A terminal websocket."""
 
     auth_resource = AUTH_RESOURCE
 
     def initialize(self, name, term_manager, **kwargs):
+        """Initialize the socket."""
         BaseTermSocket.initialize(self, term_manager, **kwargs)
         TerminalsMixin.initialize(self, name)
 
@@ -28,6 +30,7 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
         return True
 
     def get(self, *args, **kwargs):
+        """Get the terminal socket."""
         user = self.current_user
 
         if not user:
@@ -45,10 +48,12 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
         return super().get(*args, **kwargs)
 
     def on_message(self, message):
+        """Handle a socket mesage."""
         super().on_message(message)
         self._update_activity()
 
     def write_message(self, message, binary=False):
+        """Write a message to the socket."""
         super().write_message(message, binary=binary)
         self._update_activity()
 

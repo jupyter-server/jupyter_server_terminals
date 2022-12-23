@@ -1,3 +1,4 @@
+"""A terminals extension app."""
 import os
 import shlex
 import sys
@@ -13,6 +14,7 @@ from .terminalmanager import TerminalManager
 
 
 class TerminalsExtensionApp(ExtensionApp):
+    """A terminals extension app."""
 
     name = "jupyter_server_terminals"
 
@@ -30,12 +32,14 @@ class TerminalsExtensionApp(ExtensionApp):
     terminals_available = False
 
     def initialize_settings(self):
+        """Initialize settings."""
         self.initialize_configurables()
         self.settings.update(
             {"terminals_available": True, "terminal_manager": self.terminal_manager}
         )
 
     def initialize_configurables(self):
+        """Initialize configurables."""
         if os.name == "nt":
             default_shell = "powershell.exe"
         else:
@@ -65,6 +69,7 @@ class TerminalsExtensionApp(ExtensionApp):
         self.terminal_manager.log = self.serverapp.log
 
     def initialize_handlers(self):
+        """Initialize handlers."""
         self.handlers.append(
             (
                 r"/terminals/websocket/(\w+)",
@@ -79,6 +84,7 @@ class TerminalsExtensionApp(ExtensionApp):
         ]
 
     def current_activity(self):
+        """Get current activity info."""
         if self.terminals_available:
             terminals = self.terminal_manager.terminals
             if terminals:
@@ -102,4 +108,5 @@ class TerminalsExtensionApp(ExtensionApp):
         await ensure_async(terminal_manager.terminate_all())
 
     async def stop_extension(self):
+        """Stop the extension."""
         await self.cleanup_terminals()
