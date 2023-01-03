@@ -7,14 +7,14 @@
 from datetime import timedelta
 
 from jupyter_server._tz import isoformat, utcnow
-from jupyter_server.prometheus.metrics import (  # type:ignore[attr-defined]
-    TERMINAL_CURRENTLY_RUNNING_TOTAL,
-)
+from jupyter_server.prometheus import metrics
 from terminado.management import NamedTermManager
 from tornado import web
 from tornado.ioloop import IOLoop, PeriodicCallback
 from traitlets import Integer
 from traitlets.config import LoggingConfigurable
+
+RUNNING_TOTAL = metrics.TERMINAL_CURRENTLY_RUNNING_TOTAL  # type:ignore[attr-defined]
 
 
 class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[misc]
@@ -50,7 +50,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         term.last_activity = utcnow()
         model = self.get_terminal_model(name)
         # Increase the metric by one because a new terminal was created
-        TERMINAL_CURRENTLY_RUNNING_TOTAL.inc()
+        RUNNING_TOTAL.inc()
         # Ensure culler is initialized
         self._initialize_culler()
         return model
@@ -65,7 +65,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         models = [self.get_terminal_model(name) for name in self.terminals]
 
         # Update the metric below to the length of the list 'terms'
-        TERMINAL_CURRENTLY_RUNNING_TOTAL.set(len(models))
+        RUNNING_TOTAL.set(len(models))
         return models
 
     async def terminate(self, name, force=False):
@@ -75,7 +75,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
 
         # Decrease the metric below by one
         # because a terminal has been shutdown
-        TERMINAL_CURRENTLY_RUNNING_TOTAL.dec()
+        RUNNING_TOTAL.dec()
 
     async def terminate_all(self):
         """Terminate all terminals."""
