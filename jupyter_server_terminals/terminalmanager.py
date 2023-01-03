@@ -8,7 +8,7 @@ from datetime import timedelta
 
 from jupyter_server._tz import isoformat, utcnow
 from jupyter_server.prometheus.metrics import (
-    TERMINAL_CURRENTLY_RUNNING_TOTAL,  # type:ignore[attr-defined]
+    TERMINAL_CURRENTLY_RUNNING_TOTAL, 
 )
 from terminado.management import NamedTermManager
 from tornado import web
