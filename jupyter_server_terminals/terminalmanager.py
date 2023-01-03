@@ -63,7 +63,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         models = [self.get_terminal_model(name) for name in self.terminals]
 
         # Update the metric below to the length of the list 'terms'
-        TERMINAL_CURRENTLY_RUNNING_TOTAL.set(len(models))
+        metrics.TERMINAL_CURRENTLY_RUNNING_TOTAL.set(len(models))
         return models
 
     async def terminate(self, name, force=False):
