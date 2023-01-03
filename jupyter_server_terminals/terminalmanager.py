@@ -14,7 +14,6 @@ from tornado.ioloop import IOLoop, PeriodicCallback
 from traitlets import Integer
 from traitlets.config import LoggingConfigurable
 
-
 RUNNING_TOTAL = metrics.TERMINAL_CURRENTLY_RUNNING_TOTAL  # type:ignore[attr-defined]
 
 
