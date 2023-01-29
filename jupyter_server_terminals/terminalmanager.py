@@ -60,7 +60,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         model = self.get_terminal_model(name)
         return model
 
-    def list(self):
+    def list(self):  # noqa
         """Get a list of all running terminals."""
         models = [self.get_terminal_model(name) for name in self.terminals]
 
@@ -104,7 +104,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         """Start culler if 'cull_inactive_timeout' is greater than zero.
         Regardless of that value, set flag that we've been here.
         """
-        if not self._initialized_culler and self.cull_inactive_timeout > 0:
+        if not self._initialized_culler and self.cull_inactive_timeout > 0:  # noqa
             if self._culler_callback is None:
                 _ = IOLoop.current()
                 if self.cull_interval <= 0:  # handle case where user set invalid value

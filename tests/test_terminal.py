@@ -195,7 +195,7 @@ async def test_terminal_create_with_relative_cwd(
 
 
 async def test_terminal_create_with_bad_cwd(jp_fetch, jp_ws_fetch):
-    non_existing_path = "/tmp/path/to/nowhere"
+    non_existing_path = "/tmp/path/to/nowhere"  # noqa
     resp = await jp_fetch(
         "api",
         "terminals",

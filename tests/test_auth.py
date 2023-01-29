@@ -30,10 +30,7 @@ class AuthorizerforTesting(Authorizer):
 
     def is_authorized(self, handler, user, action, resource):
         # Parse Request
-        if isinstance(handler, WebSocketHandler):
-            method = "WEBSOCKET"
-        else:
-            method = handler.request.method
+        method = "WEBSOCKET" if isinstance(handler, WebSocketHandler) else handler.request.method
         url = self.normalize_url(handler.request.path)
 
         # Map request parts to expected action and resource.
@@ -71,10 +68,7 @@ def send_request(jp_fetch, jp_ws_fetch):
     """Send to Jupyter Server and return response code."""
 
     async def _(url, **fetch_kwargs):
-        if url.endswith("channels") or "/websocket/" in url:
-            fetch = jp_ws_fetch
-        else:
-            fetch = jp_fetch
+        fetch = jp_ws_fetch if url.endswith("channels") or "/websocket/" in url else jp_fetch
 
         try:
             r = await fetch(url, **fetch_kwargs, allow_nonstandard_methods=True)

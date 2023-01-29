@@ -3,10 +3,12 @@ from ._version import __version__  # noqa:F401
 try:
     from jupyter_server._version import version_info
 except ModuleNotFoundError:
-    raise ModuleNotFoundError("Jupyter Server must be installed to use this extension.") from None
+    msg = "Jupyter Server must be installed to use this extension."
+    raise ModuleNotFoundError(msg) from None
 
-if int(version_info[0]) < 2:  # type:ignore
-    raise RuntimeError("Jupyter Server Terminals requires Jupyter Server 2.0+")
+if int(version_info[0]) < 2:  # type:ignore  # noqa
+    msg = "Jupyter Server Terminals requires Jupyter Server 2.0+"
+    raise RuntimeError(msg)
 
 from .app import TerminalsExtensionApp
 
