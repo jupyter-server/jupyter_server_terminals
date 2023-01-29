@@ -92,7 +92,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "Jupyter Server Terminals"
-copyright = "2021, Jupyter Team, https://jupyter.org"
+copyright = "2021, Jupyter Team, https://jupyter.org"  # noqa
 author = "The Jupyter Server Team"
 
 # ghissue config
