@@ -40,9 +40,7 @@ class TerminalsExtensionApp(ExtensionApp):
 
     def initialize_configurables(self):
         """Initialize configurables."""
-        default_shell = (
-            "powershell.exe" if os.name == "nt" else which("sh")  # type:ignore[assignment]
-        )
+        default_shell = "powershell.exe" if os.name == "nt" else which("sh")
         shell_override = self.serverapp.terminado_settings.get("shell_command")
         if isinstance(shell_override, str):
             shell_override = shlex.split(shell_override)
