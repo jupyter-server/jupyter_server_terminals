@@ -11,7 +11,6 @@ from traitlets.config.loader import Config
 
 
 class AuthorizerforTesting(Authorizer):
-
     # Set these class attributes from within a test
     # to verify that they match the arguments passed
     # by the REST API.
