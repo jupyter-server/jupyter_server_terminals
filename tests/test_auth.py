@@ -111,7 +111,7 @@ HTTP_REQUESTS_PARAMETRIZED = [(req["method"], req["url"], req.get("body")) for r
 
 @pytest.mark.parametrize("method, url, body", HTTP_REQUESTS_PARAMETRIZED)
 @pytest.mark.parametrize("allowed", (True, False))
-async def test_authorized_requests(
+async def test_authorized_requests(  # noqa
     request,
     io_loop,
     send_request,
