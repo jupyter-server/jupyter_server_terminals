@@ -35,11 +35,9 @@ Homepage = "https://jupyter.org"
 
 [project.optional-dependencies]
 test = [
-  "coverage",
   "jupyter_server>=2.0.0",
   "pytest-jupyter[server]>=0.5.3",
   "pytest>=7.0",
-  "pytest-cov",
   "pytest-timeout",
 ]
 docs = [
@@ -76,7 +74,7 @@ nowarn = "test -W default {args}"
 
 [tool.hatch.envs.cov]
 features = ["test"]
-dependencies = ["coverage", "pytest-cov"]
+dependencies = ["coverage[toml]", "pytest-cov"]
 [tool.hatch.envs.cov.scripts]
 test = "python -m pytest -vv --cov jupyter_server_terminals --cov-branch --cov-report term-missing:skip-covered {args}"
 nowarn = "test -W default {args}"
@@ -122,6 +120,10 @@ filterwarnings = [
   # From juypter core
   "module:Jupyter is migrating its paths to use standard platformdirs:DeprecationWarning",
 ]
+
+[tool.coverage.run]
+relative_files = true
+source = ["jupyter_server_terminals"]
 
 [tool.mypy]
 check_untyped_defs = true
