@@ -43,7 +43,7 @@ test = [
 docs = [
 "jinja2",
 "jupyter_server",
-"mistune<3.0",  # https://github.com/jupyter/nbconvert/issues/1685"
+"mistune<4.0",  # https://github.com/jupyter/nbconvert/issues/1685"
 "myst-parser",
 "nbformat",
 "packaging",
