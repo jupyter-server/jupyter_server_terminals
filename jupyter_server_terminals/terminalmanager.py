@@ -139,7 +139,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
             except Exception as e:
                 self.log.exception(
                     "The following exception was encountered while checking the "
-                    "activity of terminal {}: {}".format(name, e)
+                    f"activity of terminal {name}: {e}"
                 )
 
     async def _cull_inactive_terminal(self, name):
