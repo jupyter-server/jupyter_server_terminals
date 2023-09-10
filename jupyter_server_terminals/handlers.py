@@ -23,9 +23,9 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
 
     auth_resource = AUTH_RESOURCE
 
-    def initialize(
+    def initialize(  # type:ignore[override]
         self, name: str, term_manager: NamedTermManager, **kwargs: t.Any
-    ) -> None:  # type:ignore[override]
+    ) -> None:
         """Initialize the socket."""
         BaseTermSocket.initialize(self, term_manager, **kwargs)  # type:ignore[no-untyped-call]
         TerminalsMixin.initialize(self, name)  # type:ignore[no-untyped-call]

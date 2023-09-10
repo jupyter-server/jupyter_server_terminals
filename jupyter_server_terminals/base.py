@@ -1,4 +1,6 @@
 """Base classes."""
+from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 from jupyter_server.extension.handler import ExtensionHandlerMixin
