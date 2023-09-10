@@ -1,7 +1,9 @@
 """API handlers for terminals."""
+from __future__ import annotations
+
 import json
 from pathlib import Path
-from typing import Optional
+from typing import Any
 
 from jupyter_server.auth.decorator import authorized
 from jupyter_server.base.handlers import APIHandler
@@ -23,22 +25,22 @@ class TerminalRootHandler(TerminalsMixin, TerminalAPIHandler):
 
     @web.authenticated
     @authorized
-    def get(self):
+    def get(self) -> None:
         """Get the list of terminals."""
         models = self.terminal_manager.list()
-        self.finish(json.dumps(models))
+        self.finish(json.dumps(models))  # type:ignore[no-untyped-call]
 
     @web.authenticated
     @authorized
-    def post(self):
+    def post(self) -> None:
         """POST /terminals creates a new terminal and redirects to it"""
-        data = self.get_json_body() or {}
+        data = self.get_json_body() or {}  # type:ignore[no-untyped-call]
 
         # if cwd is a relative path, it should be relative to the root_dir,
         # but if we pass it as relative, it will we be considered as relative to
         # the path jupyter_server was started in
         if "cwd" in data:
-            cwd: Optional[Path] = Path(data["cwd"])
+            cwd: Path | None = Path(data["cwd"])
             assert cwd is not None  # noqa
             if not cwd.resolve().exists():
                 cwd = Path(self.settings["server_root_dir"]).expanduser() / cwd
@@ -57,7 +59,7 @@ class TerminalRootHandler(TerminalsMixin, TerminalAPIHandler):
                 data["cwd"] = str(cwd.resolve())
 
         model = self.terminal_manager.create(**data)
-        self.finish(json.dumps(model))
+        self.finish(json.dumps(model))  # type:ignore[no-untyped-call]
 
 
 class TerminalHandler(TerminalsMixin, TerminalAPIHandler):
@@ -67,21 +69,21 @@ class TerminalHandler(TerminalsMixin, TerminalAPIHandler):
 
     @web.authenticated
     @authorized
-    def get(self, name):
+    def get(self, name: str) -> None:
         """Get a terminal by name."""
         model = self.terminal_manager.get(name)
-        self.finish(json.dumps(model))
+        self.finish(json.dumps(model))  # type:ignore[no-untyped-call]
 
     @web.authenticated
     @authorized
-    async def delete(self, name):
+    async def delete(self, name: str) -> None:
         """Remove a terminal by name."""
         await self.terminal_manager.terminate(name, force=True)
         self.set_status(204)
-        self.finish()
+        self.finish()  # type:ignore[no-untyped-call]
 
 
-default_handlers = [
+default_handlers: list[tuple[str, type[Any]]] = [
     (r"/api/terminals", TerminalRootHandler),
     (r"/api/terminals/(\w+)", TerminalHandler),
 ]

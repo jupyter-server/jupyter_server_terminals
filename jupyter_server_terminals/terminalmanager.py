@@ -4,17 +4,22 @@
 """
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
+from __future__ import annotations
+
+import typing as t
 from datetime import timedelta
 
 from jupyter_server._tz import isoformat, utcnow
 from jupyter_server.prometheus import metrics
-from terminado.management import NamedTermManager
+from terminado.management import NamedTermManager, PtyWithClients
 from tornado import web
 from tornado.ioloop import IOLoop, PeriodicCallback
 from traitlets import Integer
 from traitlets.config import LoggingConfigurable
 
 RUNNING_TOTAL = metrics.TERMINAL_CURRENTLY_RUNNING_TOTAL  # type:ignore[attr-defined]
+
+MODEL = t.Dict[str, t.Any]
 
 
 class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[misc]
@@ -24,7 +29,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
 
     _initialized_culler = False
 
-    cull_inactive_timeout = Integer(
+    cull_inactive_timeout = Integer(  # type:ignore[no-untyped-call]
         0,
         config=True,
         help="""Timeout (in seconds) in which a terminal has been inactive and ready to be culled.
@@ -32,7 +37,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
     )
 
     cull_interval_default = 300  # 5 minutes
-    cull_interval = Integer(
+    cull_interval = Integer(  # type:ignore[no-untyped-call]
         cull_interval_default,
         config=True,
         help="""The interval (in seconds) on which to check for terminals exceeding the inactive timeout value.""",
@@ -41,9 +46,9 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
     # -------------------------------------------------------------------------
     # Methods for managing terminals
     # -------------------------------------------------------------------------
-    def create(self, **kwargs):
+    def create(self, **kwargs: t.Any) -> MODEL:
         """Create a new terminal."""
-        name, term = self.new_named_terminal(**kwargs)
+        name, term = self.new_named_terminal(**kwargs)  # type:ignore[no-untyped-call]
         # Monkey-patch last-activity, similar to kernels.  Should we need
         # more functionality per terminal, we can look into possible sub-
         # classing or containment then.
@@ -55,12 +60,12 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         self._initialize_culler()
         return model
 
-    def get(self, name):
+    def get(self, name: str) -> MODEL:
         """Get terminal 'name'."""
         model = self.get_terminal_model(name)
         return model
 
-    def list(self):  # noqa
+    def list(self) -> list[MODEL]:  # noqa
         """Get a list of all running terminals."""
         models = [self.get_terminal_model(name) for name in self.terminals]
 
@@ -68,22 +73,22 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         RUNNING_TOTAL.set(len(models))
         return models
 
-    async def terminate(self, name, force=False):
+    async def terminate(self, name: str, force: bool = False) -> None:
         """Terminate terminal 'name'."""
         self._check_terminal(name)
-        await super().terminate(name, force=force)
+        await super().terminate(name, force=force)  # type:ignore[no-untyped-call]
 
         # Decrease the metric below by one
         # because a terminal has been shutdown
         RUNNING_TOTAL.dec()
 
-    async def terminate_all(self):
+    async def terminate_all(self) -> None:
         """Terminate all terminals."""
         terms = list(self.terminals)
         for term in terms:
             await self.terminate(term, force=True)
 
-    def get_terminal_model(self, name):
+    def get_terminal_model(self, name: str) -> MODEL:
         """Return a JSON-safe dict representing a terminal.
         For use in representing terminals in the JSON APIs.
         """
@@ -91,16 +96,16 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         term = self.terminals[name]
         model = {
             "name": name,
-            "last_activity": isoformat(term.last_activity),
+            "last_activity": isoformat(term.last_activity),  # type:ignore[no-untyped-call]
         }
         return model
 
-    def _check_terminal(self, name):
+    def _check_terminal(self, name: str) -> None:
         """Check a that terminal 'name' exists and raise 404 if not."""
         if name not in self.terminals:
             raise web.HTTPError(404, "Terminal not found: %s" % name)
 
-    def _initialize_culler(self):
+    def _initialize_culler(self) -> None:
         """Start culler if 'cull_inactive_timeout' is greater than zero.
         Regardless of that value, set flag that we've been here.
         """
@@ -126,7 +131,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
 
         self._initialized_culler = True
 
-    async def _cull_terminals(self):
+    async def _cull_terminals(self) -> None:
         self.log.debug(
             "Polling every %s seconds for terminals inactive for > %s seconds...",
             self.cull_interval,
@@ -142,7 +147,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
                     f"activity of terminal {name}: {e}"
                 )
 
-    async def _cull_inactive_terminal(self, name):
+    async def _cull_inactive_terminal(self, name: str) -> None:
         try:
             term = self.terminals[name]
         except KeyError:
@@ -162,6 +167,6 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
                 )
                 await self.terminate(name, force=True)
 
-    def pre_pty_read_hook(self, ptywclients):
+    def pre_pty_read_hook(self, ptywclients: PtyWithClients) -> None:
         """The pre-pty read hook."""
-        ptywclients.last_activity = utcnow()
+        ptywclients.last_activity = utcnow()  # type:ignore[attr-defined]

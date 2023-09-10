@@ -1,7 +1,10 @@
 """A terminals extension app."""
+from __future__ import annotations
+
 import os
 import shlex
 import sys
+import typing as t
 from shutil import which
 
 from jupyter_core.utils import ensure_async
@@ -18,7 +21,7 @@ class TerminalsExtensionApp(ExtensionApp):
 
     name = "jupyter_server_terminals"
 
-    terminal_manager_class = Type(
+    terminal_manager_class: type[TerminalManager] = Type(  # type:ignore[no-untyped-call]
         default_value=TerminalManager, help="The terminal manager class to use."
     ).tag(config=True)
 
@@ -31,14 +34,14 @@ class TerminalsExtensionApp(ExtensionApp):
     # service's initialization still fails.  As a result, this variable holds the truth.
     terminals_available = False
 
-    def initialize_settings(self):
+    def initialize_settings(self) -> None:
         """Initialize settings."""
         self.initialize_configurables()
         self.settings.update(
             {"terminals_available": True, "terminal_manager": self.terminal_manager}
         )
 
-    def initialize_configurables(self):
+    def initialize_configurables(self) -> None:
         """Initialize configurables."""
         default_shell = "powershell.exe" if os.name == "nt" else which("sh")
         shell_override = self.serverapp.terminado_settings.get("shell_command")
@@ -65,7 +68,7 @@ class TerminalsExtensionApp(ExtensionApp):
         )
         self.terminal_manager.log = self.serverapp.log
 
-    def initialize_handlers(self):
+    def initialize_handlers(self) -> None:
         """Initialize handlers."""
         self.handlers.append(
             (
@@ -80,14 +83,15 @@ class TerminalsExtensionApp(ExtensionApp):
             "terminals_available"
         ]
 
-    def current_activity(self):
+    def current_activity(self) -> dict[str, t.Any] | None:
         """Get current activity info."""
         if self.terminals_available:
             terminals = self.terminal_manager.terminals
             if terminals:
                 return terminals
+        return None
 
-    async def cleanup_terminals(self):
+    async def cleanup_terminals(self) -> None:
         """Shutdown all terminals.
 
         The terminals will shutdown themselves when this process no longer exists,
@@ -102,8 +106,8 @@ class TerminalsExtensionApp(ExtensionApp):
             "Shutting down %d terminal", "Shutting down %d terminals", n_terminals
         )
         self.log.info(terminal_msg % n_terminals)
-        await ensure_async(terminal_manager.terminate_all())
+        await ensure_async(terminal_manager.terminate_all())  # type:ignore[arg-type]
 
-    async def stop_extension(self):
+    async def stop_extension(self) -> None:
         """Stop the extension."""
         await self.cleanup_terminals()
