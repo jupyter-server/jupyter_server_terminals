@@ -48,7 +48,7 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
         return super().get(*args, **kwargs)
 
     def on_message(self, message):
-        """Handle a socket mesage."""
+        """Handle a socket message."""
         super().on_message(message)
         self._update_activity()
 

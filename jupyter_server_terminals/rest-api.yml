@@ -35,7 +35,7 @@ paths:
       summary: Create a new terminal
       responses:
         200:
-          description: Succesfully created a new terminal
+          description: Successfully created a new terminal
           content:
             application/json:
               schema:
@@ -84,7 +84,7 @@ paths:
             type: string
       responses:
         204:
-          description: Succesfully deleted terminal session
+          description: Successfully deleted terminal session
           content: {}
         403:
           description: Forbidden to access
