@@ -29,7 +29,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
 
     _initialized_culler = False
 
-    cull_inactive_timeout = Integer(  # type:ignore[no-untyped-call]
+    cull_inactive_timeout = Integer(
         0,
         config=True,
         help="""Timeout (in seconds) in which a terminal has been inactive and ready to be culled.
@@ -37,7 +37,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
     )
 
     cull_interval_default = 300  # 5 minutes
-    cull_interval = Integer(  # type:ignore[no-untyped-call]
+    cull_interval = Integer(
         cull_interval_default,
         config=True,
         help="""The interval (in seconds) on which to check for terminals exceeding the inactive timeout value.""",

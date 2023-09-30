@@ -27,7 +27,7 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
         self, name: str, term_manager: NamedTermManager, **kwargs: t.Any
     ) -> None:
         """Initialize the socket."""
-        BaseTermSocket.initialize(self, term_manager, **kwargs)  # type:ignore[no-untyped-call]
+        BaseTermSocket.initialize(self, term_manager, **kwargs)
         TerminalsMixin.initialize(self, name)  # type:ignore[no-untyped-call]
 
     def origin_check(self, origin: t.Any = None) -> bool:
@@ -52,7 +52,9 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
 
         if args[0] not in self.term_manager.terminals:
             raise web.HTTPError(404)
-        await super().get(*args, **kwargs)
+        resp = super().get(*args, **kwargs)
+        if resp:
+            await resp
 
     async def on_message(self, message: t.Any) -> None:  # type:ignore[override]
         """Handle a socket message."""

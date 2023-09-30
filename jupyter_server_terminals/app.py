@@ -21,7 +21,7 @@ class TerminalsExtensionApp(ExtensionApp):
 
     name = "jupyter_server_terminals"
 
-    terminal_manager_class: type[TerminalManager] = Type(  # type:ignore[no-untyped-call]
+    terminal_manager_class: type[TerminalManager] = Type(  # type:ignore[assignment]
         default_value=TerminalManager, help="The terminal manager class to use."
     ).tag(config=True)
 
