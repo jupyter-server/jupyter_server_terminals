@@ -52,7 +52,9 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
 
         if args[0] not in self.term_manager.terminals:
             raise web.HTTPError(404)
-        await super().get(*args, **kwargs)
+        resp = super().get(*args, **kwargs)
+        if resp is not None:
+            await resp
 
     async def on_message(self, message: t.Any) -> None:  # type:ignore[override]
         """Handle a socket message."""
