@@ -28,13 +28,13 @@ class TerminalRootHandler(TerminalsMixin, TerminalAPIHandler):
     def get(self) -> None:
         """Get the list of terminals."""
         models = self.terminal_manager.list()
-        self.finish(json.dumps(models))  # type:ignore[no-untyped-call]
+        self.finish(json.dumps(models))
 
     @web.authenticated
     @authorized
     def post(self) -> None:
         """POST /terminals creates a new terminal and redirects to it"""
-        data = self.get_json_body() or {}  # type:ignore[no-untyped-call]
+        data = self.get_json_body() or {}
 
         # if cwd is a relative path, it should be relative to the root_dir,
         # but if we pass it as relative, it will we be considered as relative to
@@ -59,7 +59,7 @@ class TerminalRootHandler(TerminalsMixin, TerminalAPIHandler):
                 data["cwd"] = str(cwd.resolve())
 
         model = self.terminal_manager.create(**data)
-        self.finish(json.dumps(model))  # type:ignore[no-untyped-call]
+        self.finish(json.dumps(model))
 
 
 class TerminalHandler(TerminalsMixin, TerminalAPIHandler):
@@ -72,7 +72,7 @@ class TerminalHandler(TerminalsMixin, TerminalAPIHandler):
     def get(self, name: str) -> None:
         """Get a terminal by name."""
         model = self.terminal_manager.get(name)
-        self.finish(json.dumps(model))  # type:ignore[no-untyped-call]
+        self.finish(json.dumps(model))
 
     @web.authenticated
     @authorized
@@ -80,7 +80,7 @@ class TerminalHandler(TerminalsMixin, TerminalAPIHandler):
         """Remove a terminal by name."""
         await self.terminal_manager.terminate(name, force=True)
         self.set_status(204)
-        self.finish()  # type:ignore[no-untyped-call]
+        self.finish()
 
 
 default_handlers: list[tuple[str, type[Any]]] = [

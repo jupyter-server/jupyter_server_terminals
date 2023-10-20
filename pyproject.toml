@@ -81,7 +81,7 @@ nowarn = "test -W default {args}"
 
 [tool.hatch.envs.typing]
 features = ["test"]
-dependencies = ["mypy>=1.5.1", "traitlets>=5.10.1"]
+dependencies = ["mypy>=1.6.0", "traitlets>=5.11.1", "jupyter_server>=2.8.0"]
 [tool.hatch.envs.typing.scripts]
 test = "mypy --install-types --non-interactive {args}"
 
@@ -90,7 +90,7 @@ dependencies = [
   "black[jupyter]==23.3.0",
   "mdformat>0.7",
   "mdformat-gfm>=0.3.5",
-  "ruff==0.0.276"
+  "ruff==0.1.1"
 ]
 detached = true
 [tool.hatch.envs.lint.scripts]
@@ -144,10 +144,10 @@ warn_unreachable = true
 [tool.black]
 line-length = 100
 skip-string-normalization = true
-target-version = ["py37"]
+target-version = ["py38"]
 
 [tool.ruff]
-target-version = "py37"
+target-version = "py38"
 line-length = 100
 select = [
   "A", "B", "C", "DTZ", "E", "EM", "F", "FBT", "I", "ICN", "ISC", "N",

@@ -96,7 +96,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         term = self.terminals[name]
         model = {
             "name": name,
-            "last_activity": isoformat(term.last_activity),  # type:ignore[no-untyped-call]
+            "last_activity": isoformat(term.last_activity),
         }
         return model
 

@@ -28,7 +28,7 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
     ) -> None:
         """Initialize the socket."""
         BaseTermSocket.initialize(self, term_manager, **kwargs)  # type:ignore[no-untyped-call]
-        TerminalsMixin.initialize(self, name)  # type:ignore[no-untyped-call]
+        TerminalsMixin.initialize(self, name)
 
     def origin_check(self, origin: t.Any = None) -> bool:
         """Terminado adds redundant origin_check
@@ -44,9 +44,9 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
             raise web.HTTPError(403)
 
         # authorize the user.
-        if not self.authorizer:
+        if self.authorizer is None:
             # Warn if an authorizer is unavailable.
-            warn_disabled_authorization()  # type:ignore[no-untyped-call]
+            warn_disabled_authorization()  # type:ignore[unreachable]
         elif not self.authorizer.is_authorized(self, user, "execute", self.auth_resource):
             raise web.HTTPError(403)
 
