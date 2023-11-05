@@ -111,8 +111,7 @@ filterwarnings = [
   "ignore:unclosed <socket.socket:ResourceWarning",
   # From juypter core
   "module:Jupyter is migrating its paths to use standard platformdirs:DeprecationWarning",
-  # From jupyter_events
-  "module:jsonschema.RefResolver is deprecated as of:DeprecationWarning",
+  "module:datetime.datetime.utc:DeprecationWarning:dateutil",
 ]
 
 [tool.coverage.run]
