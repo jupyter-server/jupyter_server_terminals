@@ -44,6 +44,7 @@ class TerminalsExtensionApp(ExtensionApp):
     def initialize_configurables(self) -> None:
         """Initialize configurables."""
         default_shell = "powershell.exe" if os.name == "nt" else which("sh")
+        assert self.serverapp is not None
         shell_override = self.serverapp.terminado_settings.get("shell_command")
         if isinstance(shell_override, str):
             shell_override = shlex.split(shell_override)
@@ -78,6 +79,7 @@ class TerminalsExtensionApp(ExtensionApp):
             )
         )
         self.handlers.extend(api_handlers.default_handlers)
+        assert self.serverapp is not None
         self.serverapp.web_app.settings["terminal_manager"] = self.terminal_manager
         self.serverapp.web_app.settings["terminals_available"] = self.settings[
             "terminals_available"

@@ -41,7 +41,7 @@ class TerminalRootHandler(TerminalsMixin, TerminalAPIHandler):
         # the path jupyter_server was started in
         if "cwd" in data:
             cwd: Path | None = Path(data["cwd"])
-            assert cwd is not None  # noqa
+            assert cwd is not None
             if not cwd.resolve().exists():
                 cwd = Path(self.settings["server_root_dir"]).expanduser() / cwd
                 if not cwd.resolve().exists():

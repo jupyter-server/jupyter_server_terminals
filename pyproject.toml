@@ -150,6 +150,8 @@ ignore = [
   "T201",
   # N802 Function name `CreateWellKnownSid` should be lowercase
   "N802", "N803",
+  # S101 Use of `assert` detected
+  "S101",
 ]
 unfixable = [
   # Don't touch print statements
