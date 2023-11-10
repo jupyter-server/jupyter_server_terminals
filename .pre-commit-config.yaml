@@ -63,7 +63,7 @@ repos:
         stages: [manual]
         args: ["--install-types", "--non-interactive"]
         additional_dependencies:
-          ["traitlets>=5.13", "jupyter_server>=2.10", "terminado>=0.17.1"]
+          ["traitlets>=5.13", "jupyter_server>=2.10", "terminado>=0.18"]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.1.5

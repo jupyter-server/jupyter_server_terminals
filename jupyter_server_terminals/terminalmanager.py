@@ -48,11 +48,11 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
     # -------------------------------------------------------------------------
     def create(self, **kwargs: t.Any) -> MODEL:
         """Create a new terminal."""
-        name, term = self.new_named_terminal(**kwargs)  # type:ignore[no-untyped-call]
+        name, term = self.new_named_terminal(**kwargs)
         # Monkey-patch last-activity, similar to kernels.  Should we need
         # more functionality per terminal, we can look into possible sub-
         # classing or containment then.
-        term.last_activity = utcnow()
+        term.last_activity = utcnow()  # type:ignore[attr-defined]
         model = self.get_terminal_model(name)
         # Increase the metric by one because a new terminal was created
         RUNNING_TOTAL.inc()
@@ -76,7 +76,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
     async def terminate(self, name: str, force: bool = False) -> None:
         """Terminate terminal 'name'."""
         self._check_terminal(name)
-        await super().terminate(name, force=force)  # type:ignore[no-untyped-call]
+        await super().terminate(name, force=force)
 
         # Decrease the metric below by one
         # because a terminal has been shutdown
@@ -96,7 +96,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         term = self.terminals[name]
         model = {
             "name": name,
-            "last_activity": isoformat(term.last_activity),
+            "last_activity": isoformat(term.last_activity),  # type:ignore[attr-defined]
         }
         return model
 
@@ -153,7 +153,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         except KeyError:
             return  # KeyErrors are somewhat expected since the terminal can be terminated as the culling check is made.
 
-        self.log.debug("name=%s, last_activity=%s", name, term.last_activity)
+        self.log.debug("name=%s, last_activity=%s", name, term.last_activity)  # type:ignore[attr-defined]
         if hasattr(term, "last_activity"):
             dt_now = utcnow()
             dt_inactive = dt_now - term.last_activity
