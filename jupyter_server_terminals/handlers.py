@@ -27,7 +27,7 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
         self, name: str, term_manager: NamedTermManager, **kwargs: t.Any
     ) -> None:
         """Initialize the socket."""
-        BaseTermSocket.initialize(self, term_manager, **kwargs)  # type:ignore[no-untyped-call]
+        BaseTermSocket.initialize(self, term_manager, **kwargs)
         TerminalsMixin.initialize(self, name)
 
     def origin_check(self, origin: t.Any = None) -> bool:
@@ -50,7 +50,7 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
         elif not self.authorizer.is_authorized(self, user, "execute", self.auth_resource):
             raise web.HTTPError(403)
 
-        if args[0] not in self.term_manager.terminals:
+        if args[0] not in self.term_manager.terminals:  # type:ignore[attr-defined]
             raise web.HTTPError(404)
         resp = super().get(*args, **kwargs)
         if resp is not None:
@@ -70,4 +70,4 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
         self.application.settings["terminal_last_activity"] = utcnow()
         # terminal may not be around on deletion/cull
         if self.term_name in self.terminal_manager.terminals:
-            self.terminal_manager.terminals[self.term_name].last_activity = utcnow()
+            self.terminal_manager.terminals[self.term_name].last_activity = utcnow()  # type:ignore[attr-defined]
