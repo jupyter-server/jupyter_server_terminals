@@ -83,7 +83,10 @@ nowarn = "test -W default {args}"
 detached = true
 dependencies = ["pre-commit"]
 [tool.hatch.envs.lint.scripts]
-build = "pre-commit run --all-files ruff"
+build = [
+    "pre-commit run --all-files ruff",
+    "pre-commit run --all-files ruff-format"
+]
 
 [tool.hatch.envs.typing]
 dependencies = [ "pre-commit"]
@@ -129,7 +132,6 @@ warn_unreachable = true
 
 [tool.ruff]
 line-length = 100
-target-version = "py38"
 
 [tool.ruff.lint]
 select = [
