@@ -14,4 +14,4 @@ class TerminalsMixin(ExtensionHandlerMixin):
 
     @property
     def terminal_manager(self) -> TerminalManager:
-        return self.settings["terminal_manager"]  # type:ignore[attr-defined,no-any-return]
+        return self.settings["terminal_manager"]  # type:ignore[no-any-return]
