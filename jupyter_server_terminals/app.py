@@ -36,6 +36,8 @@ class TerminalsExtensionApp(ExtensionApp):
 
     def initialize_settings(self) -> None:
         """Initialize settings."""
+        if not self.serverapp.terminals_enabled:
+            return
         self.initialize_configurables()
         self.settings.update(
             {"terminals_available": True, "terminal_manager": self.terminal_manager}
@@ -71,6 +73,9 @@ class TerminalsExtensionApp(ExtensionApp):
 
     def initialize_handlers(self) -> None:
         """Initialize handlers."""
+        if not self.serverapp.terminals_enabled:
+            # Checking self.terminals_available instead breaks enabling terminals
+            return
         self.handlers.append(
             (
                 r"/terminals/websocket/(\w+)",
