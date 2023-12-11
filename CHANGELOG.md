@@ -4,6 +4,42 @@ All notable changes to this project will be documented in this file.
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.0
+
+([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.4.4...00eb4ee20b8d5838e44de7a756823e4cf02949fa))
+
+### Bugs fixed
+
+- Fix respecting serverapp.terminals_enabled [#91](https://github.com/jupyter-server/jupyter_server_terminals/pull/91) ([@danielzgtg](https://github.com/danielzgtg))
+
+### Maintenance and upkeep improvements
+
+- Update ruff config [#101](https://github.com/jupyter-server/jupyter_server_terminals/pull/101) ([@blink1073](https://github.com/blink1073))
+- Update typings for Server 2.10.1 and mypy 1.7 #425 [#99](https://github.com/jupyter-server/jupyter_server_terminals/pull/99) ([@blink1073](https://github.com/blink1073))
+- Update types for terminado 0.18 [#98](https://github.com/jupyter-server/jupyter_server_terminals/pull/98) ([@blink1073](https://github.com/blink1073))
+- Update ruff config [#97](https://github.com/jupyter-server/jupyter_server_terminals/pull/97) ([@blink1073](https://github.com/blink1073))
+- Update typings for server 2.10 [#96](https://github.com/jupyter-server/jupyter_server_terminals/pull/96) ([@blink1073](https://github.com/blink1073))
+- chore: update pre-commit hooks [#95](https://github.com/jupyter-server/jupyter_server_terminals/pull/95) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- Clean up lint handling [#94](https://github.com/jupyter-server/jupyter_server_terminals/pull/94) ([@blink1073](https://github.com/blink1073))
+- Adopt ruff format [#93](https://github.com/jupyter-server/jupyter_server_terminals/pull/93) ([@blink1073](https://github.com/blink1073))
+- Update ruff and typing [#92](https://github.com/jupyter-server/jupyter_server_terminals/pull/92) ([@blink1073](https://github.com/blink1073))
+- chore: update pre-commit hooks [#90](https://github.com/jupyter-server/jupyter_server_terminals/pull/90) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- Fix typings for traitlets 5.10.1 [#89](https://github.com/jupyter-server/jupyter_server_terminals/pull/89) ([@blink1073](https://github.com/blink1073))
+- Bump actions/checkout from 3 to 4 [#88](https://github.com/jupyter-server/jupyter_server_terminals/pull/88) ([@dependabot](https://github.com/dependabot))
+- Adopt sp-repo-review [#87](https://github.com/jupyter-server/jupyter_server_terminals/pull/87) ([@blink1073](https://github.com/blink1073))
+- Update mistune requirement from \<3.0 to \<4.0 [#83](https://github.com/jupyter-server/jupyter_server_terminals/pull/83) ([@dependabot](https://github.com/dependabot))
+- Use local coverage [#80](https://github.com/jupyter-server/jupyter_server_terminals/pull/80) ([@blink1073](https://github.com/blink1073))
+- Clean up license [#77](https://github.com/jupyter-server/jupyter_server_terminals/pull/77) ([@dcsaba89](https://github.com/dcsaba89))
+- Add more linting [#75](https://github.com/jupyter-server/jupyter_server_terminals/pull/75) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2023-01-09&to=2023-12-11&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2023-01-09..2023-12-11&type=Issues) | [@codecov](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Acodecov+updated%3A2023-01-09..2023-12-11&type=Issues) | [@danielzgtg](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Adanielzgtg+updated%3A2023-01-09..2023-12-11&type=Issues) | [@dcsaba89](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Adcsaba89+updated%3A2023-01-09..2023-12-11&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Adependabot+updated%3A2023-01-09..2023-12-11&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2023-01-09..2023-12-11&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Awelcome+updated%3A2023-01-09..2023-12-11&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.4
 
 ([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.4.3...6791413888e45d2aeab5d9d154c98ca9dbd828d8))
@@ -18,8 +54,6 @@ All notable changes to this project will be documented in this file.
 ([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2022-12-19&to=2023-01-09&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2022-12-19..2023-01-09&type=Issues) | [@codecov](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Acodecov+updated%3A2022-12-19..2023-01-09&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2022-12-19..2023-01-09&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.3
 
