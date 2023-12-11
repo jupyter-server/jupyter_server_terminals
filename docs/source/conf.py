@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-#
 # Jupyter Server documentation build configuration file, created by
 # sphinx-quickstart on Mon Apr 13 09:51:11 2015.
 #
@@ -68,7 +66,7 @@ extensions = [
 ]
 
 try:
-    import enchant  # type:ignore  # noqa
+    import enchant  # type:ignore[import]  # noqa: F401
 
     extensions += ["sphinxcontrib.spelling"]
 except ImportError:
@@ -92,7 +90,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "Jupyter Server Terminals"
-copyright = "2021, Jupyter Team, https://jupyter.org"  # noqa
+copyright = "2021, Jupyter Team, https://jupyter.org"
 author = "The Jupyter Server Team"
 
 # ghissue config

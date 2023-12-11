@@ -62,10 +62,9 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
 
     def get(self, name: str) -> MODEL:
         """Get terminal 'name'."""
-        model = self.get_terminal_model(name)
-        return model
+        return self.get_terminal_model(name)
 
-    def list(self) -> list[MODEL]:  # noqa
+    def list(self) -> list[MODEL]:
         """Get a list of all running terminals."""
         models = [self.get_terminal_model(name) for name in self.terminals]
 
@@ -94,11 +93,10 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         """
         self._check_terminal(name)
         term = self.terminals[name]
-        model = {
+        return {
             "name": name,
             "last_activity": isoformat(term.last_activity),  # type:ignore[attr-defined]
         }
-        return model
 
     def _check_terminal(self, name: str) -> None:
         """Check a that terminal 'name' exists and raise 404 if not."""
@@ -109,7 +107,7 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         """Start culler if 'cull_inactive_timeout' is greater than zero.
         Regardless of that value, set flag that we've been here.
         """
-        if not self._initialized_culler and self.cull_inactive_timeout > 0:  # noqa
+        if not self._initialized_culler and self.cull_inactive_timeout > 0:  # noqa: SIM102
             if self._culler_callback is None:
                 _ = IOLoop.current()
                 if self.cull_interval <= 0:  # handle case where user set invalid value
@@ -144,7 +142,9 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
             except Exception as e:
                 self.log.exception(
                     "The following exception was encountered while checking the "
-                    f"activity of terminal {name}: {e}"
+                    "activity of terminal %s: %s",
+                    name,
+                    e,
                 )
 
     async def _cull_inactive_terminal(self, name: str) -> None:

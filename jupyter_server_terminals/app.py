@@ -36,7 +36,7 @@ class TerminalsExtensionApp(ExtensionApp):
 
     def initialize_settings(self) -> None:
         """Initialize settings."""
-        if not self.serverapp.terminals_enabled:
+        if not self.serverapp or not self.serverapp.terminals_enabled:
             return
         self.initialize_configurables()
         self.settings.update(
@@ -73,7 +73,7 @@ class TerminalsExtensionApp(ExtensionApp):
 
     def initialize_handlers(self) -> None:
         """Initialize handlers."""
-        if not self.serverapp.terminals_enabled:
+        if not self.serverapp or not self.serverapp.terminals_enabled:
             # Checking self.terminals_available instead breaks enabling terminals
             return
         self.handlers.append(
@@ -112,7 +112,7 @@ class TerminalsExtensionApp(ExtensionApp):
         terminal_msg = trans.ngettext(
             "Shutting down %d terminal", "Shutting down %d terminals", n_terminals
         )
-        self.log.info(terminal_msg % n_terminals)
+        self.log.info("%s %% %s", terminal_msg, n_terminals)
         await ensure_async(terminal_manager.terminate_all())  # type:ignore[arg-type]
 
     async def stop_extension(self) -> None:
