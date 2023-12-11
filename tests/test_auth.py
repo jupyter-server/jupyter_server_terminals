@@ -14,7 +14,7 @@ class AuthorizerforTesting(Authorizer):
     # Set these class attributes from within a test
     # to verify that they match the arguments passed
     # by the REST API.
-    permissions: Dict[str, str] = {}  # noqa
+    permissions: Dict[str, str] = {}  # noqa: RUF012
 
     def normalize_url(self, path):
         """Drop the base URL and make sure path leads with a /"""
@@ -50,7 +50,7 @@ class AuthorizerforTesting(Authorizer):
         )
 
 
-@pytest.fixture
+@pytest.fixture()
 def jp_server_config():
     return Config(
         {
@@ -62,7 +62,7 @@ def jp_server_config():
     )
 
 
-@pytest.fixture
+@pytest.fixture()
 def send_request(jp_fetch, jp_ws_fetch):
     """Send to Jupyter Server and return response code."""
 
@@ -109,9 +109,9 @@ HTTP_REQUESTS_PARAMETRIZED = [(req["method"], req["url"], req.get("body")) for r
 # -------- Test scenarios -----------
 
 
-@pytest.mark.parametrize("method, url, body", HTTP_REQUESTS_PARAMETRIZED)
-@pytest.mark.parametrize("allowed", (True, False))
-async def test_authorized_requests(  # noqa
+@pytest.mark.parametrize("method, url, body", HTTP_REQUESTS_PARAMETRIZED)  # noqa: PT006
+@pytest.mark.parametrize("allowed", (True, False))  # noqa: PT007
+async def test_authorized_requests(
     request,
     io_loop,
     send_request,

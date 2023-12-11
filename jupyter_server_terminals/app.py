@@ -107,7 +107,7 @@ class TerminalsExtensionApp(ExtensionApp):
         terminal_msg = trans.ngettext(
             "Shutting down %d terminal", "Shutting down %d terminals", n_terminals
         )
-        self.log.info(terminal_msg % n_terminals)
+        self.log.info("%s %% %s", terminal_msg, n_terminals)
         await ensure_async(terminal_manager.terminate_all())  # type:ignore[arg-type]
 
     async def stop_extension(self) -> None:

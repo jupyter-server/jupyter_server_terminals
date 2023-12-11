@@ -8,7 +8,7 @@ except ModuleNotFoundError:
     msg = "Jupyter Server must be installed to use this extension."
     raise ModuleNotFoundError(msg) from None
 
-if int(version_info[0]) < 2:  # type:ignore[call-overload]  # noqa
+if int(version_info[0]) < 2:  # type:ignore[call-overload]
     msg = "Jupyter Server Terminals requires Jupyter Server 2.0+"
     raise RuntimeError(msg)
 

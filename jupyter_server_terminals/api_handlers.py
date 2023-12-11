@@ -50,12 +50,14 @@ class TerminalRootHandler(TerminalsMixin, TerminalAPIHandler):
             if cwd is None:
                 server_root_dir = self.settings["server_root_dir"]
                 self.log.debug(
-                    f"Failed to find requested terminal cwd: {data.get('cwd')}\n"
-                    f"  It was not found within the server root neither: {server_root_dir}."
+                    "Failed to find requested terminal cwd: %s\n"
+                    "  It was not found within the server root neither: %s.",
+                    data.get("cwd"),
+                    server_root_dir,
                 )
                 del data["cwd"]
             else:
-                self.log.debug(f"Opening terminal in: {cwd.resolve()!s}")
+                self.log.debug("Opening terminal in: %s", cwd.resolve())
                 data["cwd"] = str(cwd.resolve())
 
         model = self.terminal_manager.create(**data)
