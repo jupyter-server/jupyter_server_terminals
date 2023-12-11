@@ -36,7 +36,7 @@ class TerminalsExtensionApp(ExtensionApp):
 
     def initialize_settings(self) -> None:
         """Initialize settings."""
-        if not self.serverapp.terminals_enabled:
+        if not self.serverapp or not self.serverapp.terminals_enabled:
             return
         self.initialize_configurables()
         self.settings.update(
@@ -73,7 +73,7 @@ class TerminalsExtensionApp(ExtensionApp):
 
     def initialize_handlers(self) -> None:
         """Initialize handlers."""
-        if not self.serverapp.terminals_enabled:
+        if not self.serverapp or not self.serverapp.terminals_enabled:
             # Checking self.terminals_available instead breaks enabling terminals
             return
         self.handlers.append(
