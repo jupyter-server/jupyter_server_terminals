@@ -67,7 +67,7 @@ class TerminalRootHandler(TerminalsMixin, TerminalAPIHandler):
 class TerminalHandler(TerminalsMixin, TerminalAPIHandler):
     """A handler for a specific terminal."""
 
-    SUPPORTED_METHODS = ("GET", "DELETE")  # type:ignore[assignment]
+    SUPPORTED_METHODS = ("GET", "DELETE", "OPTIONS")  # type:ignore[assignment]
 
     @web.authenticated
     @authorized
