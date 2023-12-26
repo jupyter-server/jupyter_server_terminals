@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.1
+
+([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.5.0...58ad66a5ce0bca03f6c569b32a8bef9c1bdccd2b))
+
+### Bugs fixed
+
+- fix: support OPTIONS method for CORS [#102](https://github.com/jupyter-server/jupyter_server_terminals/pull/102) ([@zhanba](https://github.com/zhanba))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2023-12-11&to=2023-12-26&type=c))
+
+[@welcome](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Awelcome+updated%3A2023-12-11..2023-12-26&type=Issues) | [@zhanba](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Azhanba+updated%3A2023-12-11..2023-12-26&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.5.0
 
 ([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.4.4...00eb4ee20b8d5838e44de7a756823e4cf02949fa))
@@ -37,8 +53,6 @@ All notable changes to this project will be documented in this file.
 ([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2023-01-09&to=2023-12-11&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2023-01-09..2023-12-11&type=Issues) | [@codecov](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Acodecov+updated%3A2023-01-09..2023-12-11&type=Issues) | [@danielzgtg](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Adanielzgtg+updated%3A2023-01-09..2023-12-11&type=Issues) | [@dcsaba89](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Adcsaba89+updated%3A2023-01-09..2023-12-11&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Adependabot+updated%3A2023-01-09..2023-12-11&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2023-01-09..2023-12-11&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Awelcome+updated%3A2023-01-09..2023-12-11&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.4
 
