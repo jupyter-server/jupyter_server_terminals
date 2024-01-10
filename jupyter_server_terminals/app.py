@@ -74,9 +74,11 @@ class TerminalsExtensionApp(ExtensionApp):
 
     def initialize_handlers(self) -> None:
         """Initialize handlers."""
-        if not self.serverapp or not self.serverapp.terminals_enabled:
+        if not self.serverapp:
             # Checking self.terminals_available instead breaks enabling terminals
+            return
 
+        if not self.serverapp.terminals_enabled:
             # webapp settings for backwards compat (used by nbclassic), #12
             self.serverapp.web_app.settings["terminals_available"] = self.settings[
                 "terminals_available"
