@@ -75,7 +75,7 @@ class TerminalsExtensionApp(ExtensionApp):
     def initialize_handlers(self) -> None:
         """Initialize handlers."""
         if not self.serverapp:
-            # Checking self.terminals_available instead breaks enabling terminals
+            # Already set `terminals_available` as `False` in `initialize_settings`
             return
 
         if not self.serverapp.terminals_enabled:
