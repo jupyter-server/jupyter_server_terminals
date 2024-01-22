@@ -55,11 +55,11 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
             raise web.HTTPError(404)
         resp = super().get(*args, **kwargs)
         if resp is not None:
-            await ensure_async(resp)
+            await ensure_async(resp)  # type:ignore[arg-type]
 
     async def on_message(self, message: t.Any) -> None:  # type:ignore[override]
         """Handle a socket message."""
-        await ensure_async(super().on_message(message))
+        await ensure_async(super().on_message(message))  # type:ignore[arg-type]
         self._update_activity()
 
     def write_message(self, message: t.Any, binary: bool = False) -> None:  # type:ignore[override]
