@@ -1,2 +1,2 @@
 """Version info for jupyter_server_terminals."""
-__version__ = "0.5.1"
+__version__ = "0.5.2"
