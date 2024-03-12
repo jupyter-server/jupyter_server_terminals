@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.3
+
+([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.5.2...4d5e3041fe8b24511d0b78b99a7678e353b78612))
+
+### Maintenance and upkeep improvements
+
+- Update Release Scripts [#108](https://github.com/jupyter-server/jupyter_server_terminals/pull/108) ([@blink1073](https://github.com/blink1073))
+- chore: update pre-commit hooks [#107](https://github.com/jupyter-server/jupyter_server_terminals/pull/107) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2024-01-22&to=2024-03-12&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2024-01-22..2024-03-12&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2024-01-22..2024-03-12&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.5.2
 
 ([Full Changelog](https://github.com/jupyter-server/jupyter_server_terminals/compare/v0.5.1...1d47163a9c02f75ff24943faa6a69bf8639b3517))
@@ -22,8 +39,6 @@ All notable changes to this project will be documented in this file.
 ([GitHub contributors page for this release](https://github.com/jupyter-server/jupyter_server_terminals/graphs/contributors?from=2023-12-26&to=2024-01-22&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Ablink1073+updated%3A2023-12-26..2024-01-22&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3Apre-commit-ci+updated%3A2023-12-26..2024-01-22&type=Issues) | [@Wh1isper](https://github.com/search?q=repo%3Ajupyter-server%2Fjupyter_server_terminals+involves%3AWh1isper+updated%3A2023-12-26..2024-01-22&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.5.1
 
