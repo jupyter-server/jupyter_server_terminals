@@ -48,7 +48,9 @@ class TermSocket(TerminalsMixin, WebSocketMixin, JupyterHandler, BaseTermSocket)
         if self.authorizer is None:
             # Warn if an authorizer is unavailable.
             warn_disabled_authorization()  # type:ignore[unreachable]
-        elif not self.authorizer.is_authorized(self, user, "execute", self.auth_resource):
+        elif not await ensure_async(
+            self.authorizer.is_authorized(self, user, "execute", self.auth_resource)
+        ):
             raise web.HTTPError(403)
 
         if args[0] not in self.term_manager.terminals:  # type:ignore[attr-defined]
