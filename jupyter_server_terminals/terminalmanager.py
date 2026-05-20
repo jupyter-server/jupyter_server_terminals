@@ -6,8 +6,10 @@
 # Distributed under the terms of the Modified BSD License.
 from __future__ import annotations
 
+import os
 import typing as t
 from datetime import timedelta
+from pathlib import Path
 
 from jupyter_server._tz import isoformat, utcnow
 from jupyter_server.prometheus import metrics
@@ -20,6 +22,44 @@ from traitlets.config import LoggingConfigurable
 RUNNING_TOTAL = metrics.TERMINAL_CURRENTLY_RUNNING_TOTAL
 
 MODEL = t.Dict[str, t.Any]
+TERMINAL_CWD_ENV = "JUPYTER_SERVER_TERMINAL_CWD"
+POWERSHELL_COMMANDS = {"powershell.exe", "powershell", "pwsh.exe", "pwsh"}
+POWERSHELL_CONFLICTING_COMMAND_ARGS = {
+    "-command",
+    "/command",
+    "-encodedcommand",
+    "/encodedcommand",
+    "-file",
+    "/file",
+}
+POWERSHELL_LITERAL_CWD_COMMAND = (
+    f"if ($env:{TERMINAL_CWD_ENV}) {{ "
+    f"Set-Location -LiteralPath $env:{TERMINAL_CWD_ENV}; "
+    f"Remove-Item Env:{TERMINAL_CWD_ENV} "
+    "}"
+)
+
+
+def _powershell_arg_name(arg: str) -> str:
+    """Normalize a PowerShell argument for conflict detection."""
+    return arg.split(":", 1)[0].lower()
+
+
+def _powershell_command_with_literal_cwd(shell_command: t.Any) -> list[str] | None:
+    """Append a literal cwd command to PowerShell shell commands when it is safe."""
+    if not isinstance(shell_command, (list, tuple)) or not shell_command:
+        return None
+    if not all(isinstance(arg, str) for arg in shell_command):
+        return None
+    if Path(shell_command[0]).name.lower() not in POWERSHELL_COMMANDS:
+        return None
+    if any(
+        _powershell_arg_name(arg) in POWERSHELL_CONFLICTING_COMMAND_ARGS
+        for arg in shell_command[1:]
+    ):
+        return None
+
+    return [*shell_command, "-NoExit", "-Command", POWERSHELL_LITERAL_CWD_COMMAND]
 
 
 class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[misc]
@@ -59,6 +99,19 @@ class TerminalManager(LoggingConfigurable, NamedTermManager):  # type:ignore[mis
         # Ensure culler is initialized
         self._initialize_culler()
         return model
+
+    def new_terminal(self, **kwargs: t.Any) -> PtyWithClients:
+        """Make a new terminal."""
+        cwd = kwargs.get("cwd")
+        if os.name == "nt" and cwd:
+            extra_env = dict(kwargs.get("extra_env") or {})
+            extra_env[TERMINAL_CWD_ENV] = str(cwd)
+            kwargs["extra_env"] = extra_env
+            shell_command = _powershell_command_with_literal_cwd(self.shell_command)
+            if shell_command is not None:
+                kwargs["shell_command"] = shell_command
+
+        return super().new_terminal(**kwargs)
 
     def get(self, name: str) -> MODEL:
         """Get terminal 'name'."""

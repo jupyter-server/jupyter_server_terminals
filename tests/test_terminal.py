@@ -9,6 +9,11 @@ import pytest
 from tornado.httpclient import HTTPClientError
 from traitlets.config.loader import Config
 
+from jupyter_server_terminals.terminalmanager import (
+    POWERSHELL_LITERAL_CWD_COMMAND,
+    _powershell_command_with_literal_cwd,
+)
+
 
 @pytest.fixture()
 def terminal_path(tmp_path):
@@ -23,6 +28,16 @@ def terminal_path(tmp_path):
 @pytest.fixture()
 def terminal_root_dir(jp_root_dir):
     subdir = jp_root_dir.joinpath("terminal_path")
+    subdir.mkdir()
+
+    yield subdir
+
+    shutil.rmtree(str(subdir), ignore_errors=True)
+
+
+@pytest.fixture()
+def terminal_root_dir_with_glob_chars(jp_root_dir):
+    subdir = jp_root_dir.joinpath("terminal[path]")
     subdir.mkdir()
 
     yield subdir
@@ -195,6 +210,53 @@ async def test_terminal_create_with_relative_cwd(
     assert expected in message_stdout
 
 
+async def test_terminal_create_with_relative_cwd_glob_chars(
+    jp_fetch, jp_ws_fetch, jp_root_dir, terminal_root_dir_with_glob_chars
+):
+    resp = await jp_fetch(
+        "api",
+        "terminals",
+        method="POST",
+        body=json.dumps({"cwd": str(terminal_root_dir_with_glob_chars.relative_to(jp_root_dir))}),
+        allow_nonstandard_methods=True,
+    )
+
+    data = json.loads(resp.body.decode())
+    term_name = data["name"]
+
+    while True:
+        try:
+            ws = await jp_ws_fetch("terminals", "websocket", term_name)
+            break
+        except HTTPClientError as e:
+            if e.code != 404:
+                raise
+            await asyncio.sleep(1)
+
+    ws.write_message(json.dumps(["stdin", "pwd\r\n"]))
+
+    message_stdout = ""
+    while True:
+        try:
+            message = await asyncio.wait_for(ws.read_message(), timeout=5.0)
+        except asyncio.TimeoutError:
+            break
+
+        message = json.loads(message)
+
+        if message[0] == "stdout":
+            message_stdout += message[1]
+
+    ws.close()
+
+    expected = (
+        terminal_root_dir_with_glob_chars.name
+        if sys.platform == "win32"
+        else str(terminal_root_dir_with_glob_chars)
+    )
+    assert expected in message_stdout
+
+
 async def test_terminal_create_with_bad_cwd(jp_fetch, jp_ws_fetch):
     non_existing_path = "/tmp/path/to/nowhere"  # noqa: S108
     resp = await jp_fetch(
@@ -234,6 +296,30 @@ async def test_terminal_create_with_bad_cwd(jp_fetch, jp_ws_fetch):
     ws.close()
 
     assert non_existing_path not in message_stdout
+
+
+def test_powershell_literal_cwd_command_allows_safe_shell_args():
+    shell_command = _powershell_command_with_literal_cwd(
+        ["C:\\Program Files\\PowerShell\\7\\pwsh.exe", "-NoLogo", "-NoProfile"]
+    )
+
+    assert shell_command == [
+        "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NoExit",
+        "-Command",
+        POWERSHELL_LITERAL_CWD_COMMAND,
+    ]
+
+
+@pytest.mark.parametrize("arg", ["-Command", "/command:print", "-File", "-EncodedCommand"])
+def test_powershell_literal_cwd_command_skips_conflicting_shell_args(arg):
+    assert _powershell_command_with_literal_cwd(["pwsh.exe", arg]) is None
+
+
+def test_powershell_literal_cwd_command_skips_non_powershell_shells():
+    assert _powershell_command_with_literal_cwd(["cmd.exe", "/K"]) is None
 
 
 async def test_app_config(jp_configurable_serverapp):
