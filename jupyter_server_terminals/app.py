@@ -43,6 +43,7 @@ class TerminalsExtensionApp(ExtensionApp):
         self.settings.update(
             {"terminals_available": True, "terminal_manager": self.terminal_manager}
         )
+        self.terminals_available = True
 
     def initialize_configurables(self) -> None:
         """Initialize configurables."""

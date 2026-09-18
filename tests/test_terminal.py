@@ -237,9 +237,12 @@ async def test_terminal_create_with_bad_cwd(jp_fetch, jp_ws_fetch):
 
 
 async def test_app_config(jp_configurable_serverapp):
-    assert jp_configurable_serverapp().terminals_enabled is True
-    assert jp_configurable_serverapp().web_app.settings["terminals_available"] is True
-    assert jp_configurable_serverapp().web_app.settings["terminal_manager"]
+    app = jp_configurable_serverapp()
+    assert app.terminals_enabled is True
+    assert app.web_app.settings["terminals_available"] is True
+    assert app.web_app.settings["terminal_manager"]
+    extension_app = next(iter(app.extension_manager.extension_apps["jupyter_server_terminals"]))
+    assert extension_app.terminals_available is True
 
 
 async def test_culling_config(jp_configurable_serverapp):
@@ -252,7 +255,12 @@ async def test_culling_config(jp_configurable_serverapp):
 
 
 @pytest.mark.skipif(os.name == "nt", reason="Not currently working on Windows")
-async def test_culling(jp_fetch):
+async def test_culling(jp_serverapp, jp_fetch):
+    extension_app = next(
+        iter(jp_serverapp.extension_manager.extension_apps["jupyter_server_terminals"])
+    )
+    assert extension_app.terminals_available is True
+    assert extension_app.current_activity() is None
     # POST request
     resp = await jp_fetch(
         "api",
@@ -263,6 +271,7 @@ async def test_culling(jp_fetch):
     term = json.loads(resp.body.decode())
     term_1 = term["name"]
     last_activity = term["last_activity"]
+    assert extension_app.current_activity()
 
     culled = False
     for _ in range(CULL_TIMEOUT + CULL_INTERVAL * 2):
@@ -282,3 +291,4 @@ async def test_culling(jp_fetch):
             await asyncio.sleep(1)
 
     assert culled
+    assert extension_app.current_activity() is None
